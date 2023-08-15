@@ -34,7 +34,7 @@ class AccountForm(BaseModel):
 
 
 class AccountToken(Token):
-    account: AccountOut
+    account: AccountOutWithPassword
 
 
 class HttpError(BaseModel):

@@ -8,7 +8,31 @@ pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
 class AccountsQueries():
 
     def get(self, username: str) -> AccountOutWithPassword:
-        pass
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    SELECT *
+                    FROM accounts
+                    WHERE username = %s
+                    """,
+                    [username]
+                )
+                record = None
+                row = db.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(db.description):
+                        record[column.name] = row[i]
+                return AccountOutWithPassword(
+                    id=record["id"],
+                    username=record["username"],
+                    hashed_password=record["password"],
+                    email=record["email"],
+                    first_name=record["first_name"],
+                    last_name=record["last_name"],
+                    phone_number=record["phone_number"]
+                )
 
     def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
         try:
@@ -39,8 +63,9 @@ class AccountsQueries():
                     )
                     id = result.fetchone()[0]
                     return AccountOutWithPassword(
-                        id=id, username=info.username,
-                        password=hashed_password,
+                        hashed_password=hashed_password,
+                        id=id,
+                        username=info.username,
                         email=info.email,
                         first_name=info.first_name,
                         last_name=info.last_name,
