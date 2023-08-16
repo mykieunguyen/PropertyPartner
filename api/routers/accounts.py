@@ -9,7 +9,6 @@ from fastapi import (
 )
 from authenticator import authenticator
 
-
 from queries.accounts import (
     AccountsQueries,
 )

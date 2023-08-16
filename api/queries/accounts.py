@@ -1,6 +1,7 @@
 from psycopg_pool import ConnectionPool
 import os
-from models import AccountIn, AccountOut, AccountOutWithPassword
+from models import AccountIn, AccountOutWithPassword, DuplicateAccountError
+
 
 pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
 
@@ -24,17 +25,23 @@ class AccountsQueries():
                     record = {}
                     for i, column in enumerate(db.description):
                         record[column.name] = row[i]
-                return AccountOutWithPassword(
-                    id=record["id"],
-                    username=record["username"],
-                    hashed_password=record["password"],
-                    email=record["email"],
-                    first_name=record["first_name"],
-                    last_name=record["last_name"],
-                    phone_number=record["phone_number"]
-                )
+                    return AccountOutWithPassword(
+                        id=record["id"],
+                        username=record["username"],
+                        hashed_password=record["password"],
+                        email=record["email"],
+                        first_name=record["first_name"],
+                        last_name=record["last_name"],
+                        phone_number=record["phone_number"]
+                    )
+                else:
+                    return None
 
     def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
+        if self.get(info.username) is not None:
+            raise DuplicateAccountError
+        if self.get(info.email) is not None:
+            raise DuplicateAccountError
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -74,4 +81,4 @@ class AccountsQueries():
 
         except Exception as e:
             print(e)
-            return {"message": "Could not create user"}
+            return {"message": "Could not create account"}
