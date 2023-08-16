@@ -15,7 +15,9 @@ from queries.accounts import (
 
 from models import (
     AccountIn,
-    DuplicateAccountError,
+    DuplicateUsernameError,
+    DuplicateEmailError,
+    DuplicateError,
     AccountForm,
     AccountToken,
     HttpError
@@ -34,10 +36,20 @@ async def create_account(
     hashed_password = authenticator.hash_password(info.password)
     try:
         account = accounts.create(info, hashed_password)
-    except DuplicateAccountError:
+    except DuplicateError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot create an account with those credentials",
+            detail="Username and Email already exists",
+        )
+    except DuplicateUsernameError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already exists",
+        )
+    except DuplicateEmailError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already exists",
         )
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
