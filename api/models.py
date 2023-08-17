@@ -47,3 +47,34 @@ class AccountToken(Token):
 
 class HttpError(BaseModel):
     detail: str
+
+
+class Error(BaseModel):
+    message: str
+
+
+class PropertiesIn(BaseModel):
+    price: int
+    city: str
+    bedrooms: int
+    bathrooms: int
+    address: str
+    sq_footage: int
+    year_built: int
+    multistory: bool
+    new_build: bool
+    state: str
+
+
+class PropertiesOut(BaseModel):
+    id: int
+    price: int
+    city: str
+    bedrooms: int
+    bathrooms: int
+    address: str
+    sq_footage: int
+    year_built: int
+    multistory: bool
+    new_build: bool
+    state: str
