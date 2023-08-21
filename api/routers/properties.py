@@ -7,7 +7,7 @@ from fastapi import (
 )
 from authenticator import authenticator
 from typing import List, Union, Optional
-from models import PropertiesOut, Error, PropertiesIn, AccountOut, UnauthorizedEditorError
+from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError
 from queries.properties import PropertiesQueries
 router = APIRouter()
 

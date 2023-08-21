@@ -84,5 +84,12 @@ class PropertiesOut(BaseModel):
     state: str
     user_id: int
 
-class Boolean(BaseModel):
-    pass
+
+class ImageIn(BaseModel):
+    picture_url: str
+
+
+class ImageOut(BaseModel):
+    id: int
+    picture_url: str
+    property_id: int
