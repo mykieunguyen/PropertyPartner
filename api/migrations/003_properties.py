@@ -13,7 +13,8 @@ steps = [
             year_built SMALLINT NOT NULL,
             multistory BOOL NOT NULL,
             new_build BOOL NOT NULL,
-            state VARCHAR(50) NOT NULL
+            state VARCHAR(50) NOT NULL,
+            user_id INTEGER NOT NULL REFERENCES accounts(id)
         );
         """,
         # "Down" SQL statement

@@ -14,6 +14,10 @@ class DuplicateError(ValueError):
     pass
 
 
+class UnauthorizedEditorError(ValueError):
+    pass
+
+
 class AccountIn(BaseModel):
     username: str
     password: str
@@ -78,3 +82,7 @@ class PropertiesOut(BaseModel):
     multistory: bool
     new_build: bool
     state: str
+    user_id: int
+
+class Boolean(BaseModel):
+    pass

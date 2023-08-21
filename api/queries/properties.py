@@ -1,7 +1,7 @@
 from psycopg_pool import ConnectionPool
 import os
-from typing import List, Union
-from models import PropertiesOut, Error, PropertiesIn
+from typing import List, Union, Optional
+from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError
 
 
 pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
@@ -25,32 +25,108 @@ class PropertiesQueries:
             print(e)
             return {"message": "Could not get all properties"}
 
-    def create_property(self, property: PropertiesIn) -> Union[PropertiesOut, Error]:
+    def create_property(self, property: PropertiesIn, account_data) -> Union[PropertiesOut, Error]:
+        user_id = account_data["id"]
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     properties = db.execute(
                         """
                         INSERT INTO properties
-                        (price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory, new_build, state)
+                        (price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory,
+                        new_build, state, user_id)
                         VALUES
-                        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [property.price, property.city, property.bedrooms, property.bathrooms, property.address,
-                            property.sq_footage, property.year_built, property.multistory, property.new_build, property.state]
+                            property.sq_footage, property.year_built, property.multistory, property.new_build, property.state,
+                            user_id]
                     )
-                    id = properties.fetchone()[0]
-                    return self.property_in_to_property_out(id, property)
+                    property_id = properties.fetchone()[0]
+                    return self.property_in_to_property_out(property_id, property, user_id)
         except Exception as e:
             print(e)
             return {"message": "Could not create property"}
 
-    def property_in_to_property_out(self, id: int, property: PropertiesIn):
+    def get_property(self, property_id: int,) -> Optional[PropertiesOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    properties = db.execute(
+                        """
+                        SELECT *
+                        FROM properties
+                        WHERE id = %s
+                        """,
+                        [property_id]
+                    )
+                    property = properties.fetchone()
+                    if property is None:
+                        return None
+                    return self.record_to_property_out(property)
+        except Exception as e:
+            print(e)
+            return {"message": "could not get property"}
+
+    def update_property(self, property_id: int, property: PropertiesIn, user_id: int) -> Union[PropertiesOut, Error]:
+        property_creator = self.get_property(property_id).dict()
+        creator_id = property_creator['user_id']
+        if user_id == creator_id:
+            try:
+                with pool.connection() as conn:
+                    with conn.cursor() as db:
+                        db.execute(
+                            """
+                            UPDATE properties
+                            SET price = %s, city = %s, bedrooms = %s, bathrooms = %s, address = %s, sq_footage = %s, year_built = %s, multistory = %s, new_build = %s, state = %s
+                            WHERE id = %s
+                            RETURNING user_id
+                            """,
+                            [property.price, property.city, property.bedrooms, property.bathrooms, property.address,
+                                property.sq_footage, property.year_built, property.multistory, property.new_build, property.state, property_id]
+                        )
+                        return self.property_in_to_property_out(property_id, property, user_id)
+            except Exception as e:
+                print(e)
+                return {"message": "Could not edit property"}
+        else:
+            raise UnauthorizedEditorError
+
+    def delete(self, property_id: int, user_id: int) -> Union[bool, Error]:
+        property_creator = self.get_property(property_id)
+        if property_creator is None:
+            return None
+        else:
+            property_creator = property_creator.dict()
+            creator_id = property_creator['user_id']
+            if user_id == creator_id:
+                try:
+                    with pool.connection() as conn:
+                        with conn.cursor() as db:
+                            property = db.execute(
+                                """
+                                DELETE FROM properties
+                                WHERE id = %s
+                                """,
+                                [property_id]
+                            )
+                            print(property)
+                            return True
+                except Exception as e:
+                    print(e)
+                    return {"message": "Cannot delete property"}
+            else:
+                raise UnauthorizedEditorError
+
+
+
+    def property_in_to_property_out(self, property_id: int, property: PropertiesIn, user_id: int):
         old_data = property.dict()
         return PropertiesOut(
-            id=id,
-            **old_data
+            id=property_id,
+            user_id=user_id,
+            **old_data,
         )
 
     def record_to_property_out(self, property):
@@ -65,5 +141,6 @@ class PropertiesQueries:
             year_built=property[7],
             multistory=property[8],
             new_build=property[9],
-            state=property[10]
+            state=property[10],
+            user_id=property[11],
         )
