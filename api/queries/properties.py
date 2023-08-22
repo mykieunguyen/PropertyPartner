@@ -1,7 +1,7 @@
 from psycopg_pool import ConnectionPool
 import os
 from typing import List, Union, Optional
-from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError
+from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError, PropertyWithOwner, PropertyOwner
 
 
 pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
@@ -49,22 +49,25 @@ class PropertiesQueries:
             print(e)
             return {"message": "Could not create property"}
 
-    def get_property(self, property_id: int,) -> Optional[PropertiesOut]:
+    def get_property(self, property_id: int,) -> Optional[PropertyWithOwner]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     properties = db.execute(
                         """
-                        SELECT *
-                        FROM properties
-                        WHERE id = %s
+                        SELECT p.*, a.id, a.email, a.first_name, a.last_name, a.phone_number
+                        FROM properties p
+                        JOIN accounts a
+                        ON p.user_id = a.id
+                        WHERE p.id = %s
                         """,
                         [property_id]
                     )
                     property = properties.fetchone()
+                    print(property)
                     if property is None:
                         return None
-                    return self.record_to_property_out(property)
+                    return self.record_to_property_out_with_account(property)
         except Exception as e:
             print(e)
             return {"message": "could not get property"}
@@ -143,4 +146,28 @@ class PropertiesQueries:
             new_build=property[9],
             state=property[10],
             user_id=property[11],
+        )
+
+
+    def record_to_property_out_with_account(self, property):
+        return PropertyWithOwner(
+            id=property[0],
+            price=property[1],
+            city=property[2],
+            bedrooms=property[3],
+            bathrooms=property[4],
+            address=property[5],
+            sq_footage=property[6],
+            year_built=property[7],
+            multistory=property[8],
+            new_build=property[9],
+            state=property[10],
+            user_id=property[11],
+            owner = PropertyOwner(
+                id=property[12],
+                email=property[13],
+                first_name=property[14],
+                last_name=property[15],
+                phone_number=property[16]
+            )
         )

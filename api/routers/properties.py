@@ -7,7 +7,7 @@ from fastapi import (
 )
 from authenticator import authenticator
 from typing import List, Union, Optional
-from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError
+from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError, PropertyWithOwner
 from queries.properties import PropertiesQueries
 router = APIRouter()
 
@@ -28,12 +28,12 @@ def create_property(
     return properties.create_property(property, account_data)
 
 
-@router.get("/api/properties/{property_id}", response_model=Optional[PropertiesOut])
+@router.get("/api/properties/{property_id}", response_model=Optional[PropertyWithOwner])
 def get_property_detail(
     response: Response,
     property_id: int,
     properties: PropertiesQueries = Depends(),
-) -> PropertiesOut:
+) -> PropertyWithOwner:
 
     property = properties.get_property(property_id)
     if property is None:
@@ -50,6 +50,7 @@ def edit_property(
 ) -> Union[PropertiesOut, Error]:
     user_id = int(account_data['id'])
     try:
+        print(account_data)
         return properties.update_property(property_id, property, user_id=user_id)
     except UnauthorizedEditorError:
         raise HTTPException(

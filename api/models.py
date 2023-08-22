@@ -93,3 +93,25 @@ class ImageOut(BaseModel):
     id: int
     picture_url: str
     property_id: int
+
+
+class PropertyOwner(BaseModel):
+    id: int
+    email: str
+    first_name: str
+    last_name: str
+    phone_number: str
+
+class PropertyWithOwner(BaseModel):
+    id: int
+    price: int
+    city: str
+    bedrooms: int
+    bathrooms: int
+    address: str
+    sq_footage: int
+    year_built: int
+    multistory: bool
+    new_build: bool
+    state: str
+    owner: PropertyOwner
