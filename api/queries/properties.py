@@ -123,6 +123,24 @@ class PropertiesQueries:
                 raise UnauthorizedEditorError
 
 
+    def get_my_properties(self, user_id: int) -> Union[List[PropertiesOut], Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    properties = db.execute(
+                        """
+                        SELECT *
+                        FROM properties
+                        WHERE user_id = %s
+                        """,
+                        [user_id]
+                    )
+                    return [self.record_to_property_out(property)
+                            for property in properties]
+        except Exception as e:
+            print(e)
+            return {"message": "Cannot retrieve user properties"}
+
 
     def property_in_to_property_out(self, property_id: int, property: PropertiesIn, user_id: int):
         old_data = property.dict()

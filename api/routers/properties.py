@@ -12,6 +12,14 @@ from queries.properties import PropertiesQueries
 router = APIRouter()
 
 
+@router.get("/api/properties/mine", response_model=Union[List[PropertiesOut], Error])
+def get_user_properties(
+    properties: PropertiesQueries = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
+) -> Union[List[PropertiesOut], Error]:
+    user_id = int(account_data["id"])
+    return properties.get_my_properties(user_id)
+
 @router.get("/api/properties", response_model=Union[List[PropertiesOut], Error])
 def get_properties(
     properties: PropertiesQueries = Depends()
