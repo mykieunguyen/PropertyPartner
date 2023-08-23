@@ -64,7 +64,6 @@ class PropertiesQueries:
                         [property_id]
                     )
                     property = properties.fetchone()
-                    print(property)
                     if property is None:
                         return None
                     return self.record_to_property_out_with_account(property)
@@ -74,7 +73,7 @@ class PropertiesQueries:
 
     def update_property(self, property_id: int, property: PropertiesIn, user_id: int) -> Union[PropertiesOut, Error]:
         property_creator = self.get_property(property_id).dict()
-        creator_id = property_creator['user_id']
+        creator_id = property_creator['owner']['id']
         if user_id == creator_id:
             try:
                 with pool.connection() as conn:
@@ -102,7 +101,7 @@ class PropertiesQueries:
             return None
         else:
             property_creator = property_creator.dict()
-            creator_id = property_creator['user_id']
+            creator_id = property_creator['owner']['id']
             if user_id == creator_id:
                 try:
                     with pool.connection() as conn:
@@ -114,14 +113,12 @@ class PropertiesQueries:
                                 """,
                                 [property_id]
                             )
-                            print(property)
                             return True
                 except Exception as e:
                     print(e)
                     return {"message": "Cannot delete property"}
             else:
                 raise UnauthorizedEditorError
-
 
     def get_my_properties(self, user_id: int) -> Union[List[PropertiesOut], Error]:
         try:
@@ -140,7 +137,6 @@ class PropertiesQueries:
         except Exception as e:
             print(e)
             return {"message": "Cannot retrieve user properties"}
-
 
     def property_in_to_property_out(self, property_id: int, property: PropertiesIn, user_id: int):
         old_data = property.dict()
@@ -166,7 +162,6 @@ class PropertiesQueries:
             user_id=property[11],
         )
 
-
     def record_to_property_out_with_account(self, property):
         return PropertyWithOwner(
             id=property[0],
@@ -181,7 +176,7 @@ class PropertiesQueries:
             new_build=property[9],
             state=property[10],
             user_id=property[11],
-            owner = PropertyOwner(
+            owner=PropertyOwner(
                 id=property[12],
                 email=property[13],
                 first_name=property[14],

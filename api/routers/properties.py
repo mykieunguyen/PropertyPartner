@@ -58,7 +58,6 @@ def edit_property(
 ) -> Union[PropertiesOut, Error]:
     user_id = int(account_data['id'])
     try:
-        print(account_data)
         return properties.update_property(property_id, property, user_id=user_id)
     except UnauthorizedEditorError:
         raise HTTPException(
