@@ -1,17 +1,40 @@
 import { useGetPropertiesQuery } from "./app/apiSlice";
 import Card from "react-bootstrap/Card";
+import { useState, useEffect } from "react";
+
 
 const MainPage = () => {
   const { data: properties, isLoading } = useGetPropertiesQuery();
+  const [searchInput, setSearchInput] = useState('');
+  const [props, setProps] = useState([]);
+
+  useEffect(() => {
+    if (isLoading || !properties) return;
+
+    const searchedProperties = searchInput
+    ? properties.filter(property => (property.city.toLowerCase().includes(searchInput.toLowerCase()) || property.state.toLowerCase().includes(searchInput.toLowerCase())))
+    : properties;
+    setProps(searchedProperties)
+  }, [searchInput, isLoading, properties])
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
+
+
+
   return (
     <>
-      <div className="container">
-        {properties &&
-          properties.map((property) => {
+    <div className='container'>
+      <div className="input-group">
+        <div className="form-outline">
+          <input type="search" id="form1" onChange={(e) => setSearchInput(e.target.value)} className="form-control" />
+          <label className="form-label" htmlFor="form1">Search</label>
+        </div>
+      </div>
+      <div>
+        {
+          props.map((property) => {
             return (
               <div key={property.id}>
                 <Card style={{ width: "18rem" }}>
@@ -42,6 +65,7 @@ const MainPage = () => {
               </div>
             );
           })}
+      </div>
       </div>
     </>
   );
