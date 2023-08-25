@@ -2,25 +2,27 @@ import { NavLink } from "react-router-dom";
 import { useGetTokenQuery } from "./app/apiSlice";
 import { useLogoutMutation } from "./app/apiSlice";
 
-const Nav = () => {
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+
+const Navcon = () => {
   const { data: account } = useGetTokenQuery();
-  const [logout, logoutResponse] = useLogoutMutation();
+  const [logout] = useLogoutMutation();
 
   return (
     <>
-      <header>
-        <div>
-          <NavLink to="/">Property Partner</NavLink>
-          {!account && <NavLink to="/Login">Login</NavLink>}
-          {account && (
-            <button to="/Logout" onClick={logout}>
-              Logout
-            </button>
-          )}
-        </div>
-      </header>
+      <Navbar bg="light" data-bs-theme="light">
+        <Container>
+          <Navbar.Brand href="/">Property Partner</Navbar.Brand>
+          <Nav className="me-auto">
+            {!account && <Nav.Link href="/login">Login</Nav.Link>}
+            {account && <Nav.Link onClick={logout}>Logout</Nav.Link>}
+          </Nav>
+        </Container>
+      </Navbar>
     </>
   );
 };
 
-export default Nav;
+export default Navcon;

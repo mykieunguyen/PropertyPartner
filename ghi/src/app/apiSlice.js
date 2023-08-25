@@ -1,5 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const fetchImages = async (propertyId) => {
+  let images = [];
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_HOST}/api/${propertyId}/image`
+    );
+    const data = await response.json();
+    images = data;
+  } catch (e) {
+    console.log(e);
+  }
+  return images;
+};
+
 export const propertyPartnerApi = createApi({
   reducerPath: "propertyPartnerApi",
   baseQuery: fetchBaseQuery({
@@ -36,8 +50,34 @@ export const propertyPartnerApi = createApi({
       },
       invalidatesTags: ["Account"],
     }),
+    getProperties: builder.query({
+      query: () => ({
+        url: `/api/properties`,
+      }),
+      transformResponse: async (response) => {
+        const data = [];
+        for (let property of response) {
+          const images = await fetchImages(property.id);
+          data.push({
+            ...property,
+            images,
+          });
+        }
+        return data;
+      },
+    }),
+    getImages: builder.query({
+      query: (property_id) => ({
+        url: `/api/${property_id}/image`,
+      }),
+    }),
   }),
 });
 
-export const { useGetTokenQuery, useLogoutMutation, useLoginMutation } =
-  propertyPartnerApi;
+export const {
+  useGetTokenQuery,
+  useLogoutMutation,
+  useLoginMutation,
+  useGetPropertiesQuery,
+  useGetImagesQuery,
+} = propertyPartnerApi;
