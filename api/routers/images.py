@@ -1,13 +1,12 @@
 from fastapi import (
     APIRouter,
     Depends,
-    Response,
     HTTPException,
     status,
 )
 from authenticator import authenticator
-from typing import List, Union, Optional
-from models import ImageIn, ImageOut, Error, UnauthorizedEditorError, HttpError
+from typing import List, Union
+from models import ImageIn, ImageOut, Error, UnauthorizedEditorError
 from queries.images import ImagesQueries
 router = APIRouter()
 
@@ -29,7 +28,8 @@ def create_image(
         )
 
 
-@router.delete("/api/{property_id}/image/{image_id}", response_model=Union[bool, Error])
+@router.delete("/api/{property_id}/image/{image_id}",
+               response_model=Union[bool, Error])
 def delete_image(
     image_id: int,
     property_id: int,
@@ -46,7 +46,8 @@ def delete_image(
         )
 
 
-@router.get("/api/{property_id}/image", response_model=Union[List[ImageOut], Error])
+@router.get("/api/{property_id}/image",
+            response_model=Union[List[ImageOut], Error])
 def get_images(
     property_id: int,
     images: ImagesQueries = Depends(),

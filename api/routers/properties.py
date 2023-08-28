@@ -7,12 +7,17 @@ from fastapi import (
 )
 from authenticator import authenticator
 from typing import List, Union, Optional
-from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError, PropertyWithOwner
+from models import (PropertiesOut,
+                    Error,
+                    PropertiesIn,
+                    UnauthorizedEditorError,
+                    PropertyWithOwner)
 from queries.properties import PropertiesQueries
 router = APIRouter()
 
 
-@router.get("/api/properties/mine", response_model=Union[List[PropertiesOut], Error])
+@router.get("/api/properties/mine",
+            response_model=Union[List[PropertiesOut], Error])
 def get_user_properties(
     properties: PropertiesQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
@@ -20,7 +25,9 @@ def get_user_properties(
     user_id = int(account_data["id"])
     return properties.get_my_properties(user_id)
 
-@router.get("/api/properties", response_model=Union[List[PropertiesOut], Error])
+
+@router.get("/api/properties",
+            response_model=Union[List[PropertiesOut], Error])
 def get_properties(
     properties: PropertiesQueries = Depends()
 ):
@@ -36,7 +43,8 @@ def create_property(
     return properties.create_property(property, account_data)
 
 
-@router.get("/api/properties/{property_id}", response_model=Optional[PropertyWithOwner])
+@router.get("/api/properties/{property_id}",
+            response_model=Optional[PropertyWithOwner])
 def get_property_detail(
     response: Response,
     property_id: int,
@@ -49,7 +57,8 @@ def get_property_detail(
     return property
 
 
-@router.put("/api/properties/{property_id}", response_model=Union[PropertiesOut, Error])
+@router.put("/api/properties/{property_id}",
+            response_model=Union[PropertiesOut, Error])
 def edit_property(
     property_id: int,
     property: PropertiesIn,
@@ -58,14 +67,18 @@ def edit_property(
 ) -> Union[PropertiesOut, Error]:
     user_id = int(account_data['id'])
     try:
-        return properties.update_property(property_id, property, user_id=user_id)
+        return properties.update_property(property_id,
+                                          property,
+                                          user_id=user_id)
     except UnauthorizedEditorError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Unauthorized editor",
         )
 
-@router.delete("/api/properties/{property_id}", response_model=Union[bool, Error])
+
+@router.delete("/api/properties/{property_id}",
+               response_model=Union[bool, Error])
 def delete_property(
     property_id: int,
     properties: PropertiesQueries = Depends(),

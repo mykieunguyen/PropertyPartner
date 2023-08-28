@@ -1,7 +1,12 @@
 from psycopg_pool import ConnectionPool
 import os
 from typing import List, Union, Optional
-from models import PropertiesOut, Error, PropertiesIn, UnauthorizedEditorError, PropertyWithOwner, PropertyOwner
+from models import (PropertiesOut,
+                    Error,
+                    PropertiesIn,
+                    UnauthorizedEditorError,
+                    PropertyWithOwner,
+                    PropertyOwner)
 
 
 pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
@@ -25,7 +30,9 @@ class PropertiesQueries:
             print(e)
             return {"message": "Could not get all properties"}
 
-    def create_property(self, property: PropertiesIn, account_data) -> Union[PropertiesOut, Error]:
+    def create_property(self,
+                        property: PropertiesIn,
+                        account_data) -> Union[PropertiesOut, Error]:
         user_id = account_data["id"]
         try:
             with pool.connection() as conn:
@@ -33,18 +40,23 @@ class PropertiesQueries:
                     properties = db.execute(
                         """
                         INSERT INTO properties
-                        (price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory,
+                        (price, city, bedrooms, bathrooms, address,
+                        sq_footage, year_built, multistory,
                         new_build, state, user_id)
                         VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
-                        [property.price, property.city, property.bedrooms, property.bathrooms, property.address,
-                            property.sq_footage, property.year_built, property.multistory, property.new_build, property.state,
-                            user_id]
+                        [property.price, property.city, property.bedrooms,
+                         property.bathrooms, property.address,
+                         property.sq_footage, property.year_built,
+                         property.multistory, property.new_build,
+                         property.state, user_id]
                     )
                     property_id = properties.fetchone()[0]
-                    return self.property_in_to_property_out(property_id, property, user_id)
+                    return self.property_in_to_property_out(property_id,
+                                                            property,
+                                                            user_id)
         except Exception as e:
             print(e)
             return {"message": "Could not create property"}
@@ -55,7 +67,8 @@ class PropertiesQueries:
                 with conn.cursor() as db:
                     properties = db.execute(
                         """
-                        SELECT p.*, a.id, a.email, a.first_name, a.last_name, a.phone_number
+                        SELECT p.*, a.id, a.email,
+                        a.first_name, a.last_name, a.phone_number
                         FROM properties p
                         JOIN accounts a
                         ON p.user_id = a.id
@@ -71,7 +84,10 @@ class PropertiesQueries:
             print(e)
             return {"message": "could not get property"}
 
-    def update_property(self, property_id: int, property: PropertiesIn, user_id: int) -> Union[PropertiesOut, Error]:
+    def update_property(self,
+                        property_id: int,
+                        property: PropertiesIn,
+                        user_id: int) -> Union[PropertiesOut, Error]:
         property_creator = self.get_property(property_id).dict()
         creator_id = property_creator['owner']['id']
         if user_id == creator_id:
@@ -81,14 +97,22 @@ class PropertiesQueries:
                         db.execute(
                             """
                             UPDATE properties
-                            SET price = %s, city = %s, bedrooms = %s, bathrooms = %s, address = %s, sq_footage = %s, year_built = %s, multistory = %s, new_build = %s, state = %s
+                            SET price = %s, city = %s, bedrooms = %s,
+                            bathrooms = %s,address = %s, sq_footage = %s,
+                            year_built = %s,multistory = %s,
+                            new_build = %s, state = %s
                             WHERE id = %s
                             RETURNING user_id
                             """,
-                            [property.price, property.city, property.bedrooms, property.bathrooms, property.address,
-                                property.sq_footage, property.year_built, property.multistory, property.new_build, property.state, property_id]
+                            [property.price, property.city, property.bedrooms,
+                             property.bathrooms, property.address,
+                             property.sq_footage, property.year_built,
+                             property.multistory, property.new_build,
+                             property.state, property_id]
                         )
-                        return self.property_in_to_property_out(property_id, property, user_id)
+                        return self.property_in_to_property_out(property_id,
+                                                                property,
+                                                                user_id)
             except Exception as e:
                 print(e)
                 return {"message": "Could not edit property"}
@@ -106,7 +130,7 @@ class PropertiesQueries:
                 try:
                     with pool.connection() as conn:
                         with conn.cursor() as db:
-                            property = db.execute(
+                            db.execute(
                                 """
                                 DELETE FROM properties
                                 WHERE id = %s
@@ -120,7 +144,8 @@ class PropertiesQueries:
             else:
                 raise UnauthorizedEditorError
 
-    def get_my_properties(self, user_id: int) -> Union[List[PropertiesOut], Error]:
+    def get_my_properties(self,
+                          user_id: int) -> Union[List[PropertiesOut], Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -138,7 +163,10 @@ class PropertiesQueries:
             print(e)
             return {"message": "Cannot retrieve user properties"}
 
-    def property_in_to_property_out(self, property_id: int, property: PropertiesIn, user_id: int):
+    def property_in_to_property_out(self,
+                                    property_id: int,
+                                    property: PropertiesIn,
+                                    user_id: int):
         old_data = property.dict()
         return PropertiesOut(
             id=property_id,

@@ -1,8 +1,7 @@
 from psycopg_pool import ConnectionPool
 import os
-from typing import List, Union, Optional
-from models import ImageIn, ImageOut, Error, UnauthorizedEditorError, HttpError
-from queries.properties import PropertiesQueries
+from typing import List, Union
+from models import ImageIn, ImageOut, Error, UnauthorizedEditorError
 
 
 pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
@@ -27,7 +26,9 @@ class ImagesQueries:
             print(e)
             return {"message": "Property does not exist"}
 
-    def create(self, image: ImageIn, property_id: int, user_id: int) -> Union[ImageOut, Error]:
+    def create(self, image: ImageIn,
+               property_id: int,
+               user_id: int) -> Union[ImageOut, Error]:
         property_creator = self.get_property(property_id)
         if user_id == property_creator:
             try:
@@ -55,7 +56,9 @@ class ImagesQueries:
         else:
             raise UnauthorizedEditorError
 
-    def delete(self, image_id: int, property_id: int, user_id: int) -> Union[bool, Error]:
+    def delete(self, image_id: int,
+               property_id: int,
+               user_id: int) -> Union[bool, Error]:
         property_creator = self.get_property(property_id)
         if user_id == property_creator:
             try:

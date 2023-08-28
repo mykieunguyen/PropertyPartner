@@ -1,6 +1,10 @@
 from psycopg_pool import ConnectionPool
 import os
-from models import AccountIn, AccountOutWithPassword, DuplicateUsernameError, DuplicateEmailError, DuplicateError
+from models import (AccountIn,
+                    AccountOutWithPassword,
+                    DuplicateUsernameError,
+                    DuplicateEmailError,
+                    DuplicateError)
 
 
 pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
@@ -18,7 +22,7 @@ def email_exist(email):
                 [email]
             )
             row = db.fetchone()
-            if row == None:
+            if row is None:
                 return False
             else:
                 return True
@@ -55,13 +59,14 @@ class AccountsQueries():
                 else:
                     return None
 
-    def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
+    def create(self, info: AccountIn,
+               hashed_password: str) -> AccountOutWithPassword:
         valid_email = email_exist(info.email)
-        if self.get(info.username) is not None and valid_email == True:
+        if self.get(info.username) is not None and valid_email is True:
             raise DuplicateError
         if self.get(info.username) is not None:
             raise DuplicateUsernameError
-        if valid_email == True:
+        if valid_email is True:
             raise DuplicateEmailError
 
         try:

@@ -102,6 +102,7 @@ class PropertyOwner(BaseModel):
     last_name: str
     phone_number: str
 
+
 class PropertyWithOwner(BaseModel):
     id: int
     price: int
