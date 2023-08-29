@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useCreatePropertyMutation} from './app/apiSlice';
 import ErrorNotification from './ErrorNotification';
 import {usStates} from './states.js';
+import CreateImageForm from './CreateImageForm';
 
 
 function CreatePropertyForm () {
-    const navigate = useNavigate();
 
     const [price, setPrice] = useState('');
 
@@ -32,27 +31,30 @@ function CreatePropertyForm () {
 
     const [createProperty, result] = useCreatePropertyMutation();
 
+    const [propertyFormStatus, setPropertyFormStatus] = useState(false);
 
-    console.log(result)
+    const [propertyId, setPropertyId] = useState('');
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const x = createProperty({price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory, new_build, state});
-        console.log('fadsfasdf', {price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory, new_build, state})
-        console.log('999999', x)
-    }
+        createProperty({price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory, new_build, state});
+        setPropertyFormStatus(!propertyFormStatus)
+      }
 
     useEffect(() =>{
-    if (result.isSuccess) {
-        navigate('/properties');
-    } else if (result.isError) {
+      if (result.isSuccess) {
+        setPropertyId(result.data.id)
+      } else if (result.isError) {
         setError(result.error);
     }
-    }, [result, navigate, setError])
+    }, [result, setError])
+    console.log(result)
 
       return (
         <div className="row">
         <div className="offset-3 col-6">
-          <div className="shadow p-4 mt-4">
+          {!propertyFormStatus?(<div className="shadow p-4 mt-4">
             <h1>Add a Property</h1>
             <ErrorNotification error={error} />
             <form onSubmit={handleSubmit} id="create-property-form">
@@ -105,7 +107,8 @@ function CreatePropertyForm () {
               </div>
               <button className="btn btn-primary">Create</button>
             </form>
-          </div>
+          </div>)
+          :(<CreateImageForm property_id={propertyId?propertyId:null}/>)}
         </div>
       </div>
     );

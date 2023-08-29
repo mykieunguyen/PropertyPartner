@@ -38,13 +38,13 @@ function App() {
     <BrowserRouter basename={basename}>
       <Nav />
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" index element={<MainPage />} />
       </Routes>
       <Routes>
-        <Route path="/login" element={<LoginForm />} />
+        <Route path="login" element={<LoginForm />} />
       </Routes>
       <Routes>
-        <Route path="/properties" element={<CreatePropertyForm />} />
+        <Route path="properties" element={<CreatePropertyForm />} />
       </Routes>
     </BrowserRouter>
   );

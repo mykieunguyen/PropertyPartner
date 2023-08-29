@@ -75,9 +75,9 @@ export const propertyPartnerApi = createApi({
       })
     }),
     createImages: builder.mutation({
-      query: data => ({
-        url: '/api/${property_id}/image',
-        body: data,
+      query: (args) => ({
+        url: `/api/${args.property_id}/image`,
+        body: args.data,
         method: 'post',
         credentials: 'include',
       })
