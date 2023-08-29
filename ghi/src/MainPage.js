@@ -50,7 +50,7 @@ const MainPage = () => {
                     />
                   )}
                   <Card.Body>
-                    <Card.Title>{property.price}</Card.Title>
+                    <Card.Title>${property.price}</Card.Title>
                     <Card.Subtitle>
                       {property.city}, {property.state}
                     </Card.Subtitle>

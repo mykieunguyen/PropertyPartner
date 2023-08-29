@@ -66,6 +66,22 @@ export const propertyPartnerApi = createApi({
         return data;
       },
     }),
+    createProperty: builder.mutation({
+      query: data => ({
+        url: '/api/properties',
+        body: data,
+        method: 'post',
+        credentials: "include",
+      })
+    }),
+    createImages: builder.mutation({
+      query: data => ({
+        url: '/api/${property_id}/image',
+        body: data,
+        method: 'post',
+        credentials: 'include',
+      })
+    }),
     getImages: builder.query({
       query: (property_id) => ({
         url: `/api/${property_id}/image`,
@@ -80,4 +96,6 @@ export const {
   useLoginMutation,
   useGetPropertiesQuery,
   useGetImagesQuery,
+  useCreatePropertyMutation,
+  useCreateImagesMutation,
 } = propertyPartnerApi;

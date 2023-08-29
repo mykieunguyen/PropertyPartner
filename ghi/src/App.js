@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import LoginForm from "./LoginForm.js";
 import MainPage from "./MainPage.js";
+import CreatePropertyForm from "./CreatePropertyForm.js";
 
 function App() {
   // const [launchInfo, setLaunchInfo] = useState([]);
@@ -41,6 +42,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/login" element={<LoginForm />} />
+      </Routes>
+      <Routes>
+        <Route path="/properties" element={<CreatePropertyForm />} />
       </Routes>
     </BrowserRouter>
   );
