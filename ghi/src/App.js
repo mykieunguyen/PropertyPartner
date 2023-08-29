@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginForm from "./LoginForm.js";
 import MainPage from "./MainPage.js";
 import CreatePropertyForm from "./CreatePropertyForm.js";
+import SignUpForm from "./SignUpForm.js";
 
 function App() {
   // const [launchInfo, setLaunchInfo] = useState([]);
@@ -45,6 +46,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="properties" element={<CreatePropertyForm />} />
+      </Routes>
+      <Routes>
+        <Route path="accounts" element={<SignUpForm />} />
       </Routes>
     </BrowserRouter>
   );
