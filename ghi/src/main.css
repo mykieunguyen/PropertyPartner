@@ -1,4 +1,4 @@
-.properties-container {
+.properties-filter-container {
   display: flex;
 }
 
@@ -11,4 +11,8 @@ a {
   height: 40vh;
   text-align: center;
   padding-top: 5em;
+}
+
+.properties-container {
+  display: flex;
 }

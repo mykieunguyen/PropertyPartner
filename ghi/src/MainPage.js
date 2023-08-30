@@ -22,7 +22,7 @@ const MainPage = () => {
     <>
       <div className="container">
         <MainPageBanner />
-        <div className="properties-container">
+        <div className="properties-filter-container">
           <FilterSidebar
             originalProps={properties}
             properties={props}
@@ -30,35 +30,41 @@ const MainPage = () => {
           />
           <div>
             <div className="input-group"></div>
-            <div>
-              {props.map((property) => {
+            <div className="properties-container">
+              {PropertyColumns(props).map((col, index) => {
                 return (
-                  <div key={property.id}>
-                    <Card style={{ width: "18rem" }}>
-                      {(property.images[0]?.picture_url && (
-                        <Card.Img
-                          variant="top"
-                          src={property.images[0].picture_url}
-                        />
-                      )) || (
-                        <Card.Img
-                          variant="top"
-                          src="https://st3.depositphotos.com/3907761/17915/v/450/depositphotos_179157200-stock-illustration-home-line-vector-icon.jpg"
-                        />
-                      )}
-                      <Card.Body>
-                        <Card.Title>${property.price}</Card.Title>
-                        <Card.Subtitle>
-                          {property.city}, {property.state}
-                        </Card.Subtitle>
-                        <Card.Text>
-                          <span>{property.bedrooms} BDS </span>
-                          <span>{property.bathrooms} BA </span>
-                          <span>{property.sq_footage} SQFT </span>
-                        </Card.Text>
-                        <footer>{property.address}</footer>
-                      </Card.Body>
-                    </Card>
+                  <div key={index}>
+                    {col.map((property) => {
+                      return (
+                        <div key={property.id}>
+                          <Card style={{ width: "18rem" }}>
+                            {(property.images[0]?.picture_url && (
+                              <Card.Img
+                                variant="top"
+                                src={property.images[0].picture_url}
+                              />
+                            )) || (
+                              <Card.Img
+                                variant="top"
+                                src="https://st3.depositphotos.com/3907761/17915/v/450/depositphotos_179157200-stock-illustration-home-line-vector-icon.jpg"
+                              />
+                            )}
+                            <Card.Body>
+                              <Card.Title>${property.price}</Card.Title>
+                              <Card.Subtitle>
+                                {property.city}, {property.state}
+                              </Card.Subtitle>
+                              <Card.Text>
+                                <span>{property.bedrooms} BDS </span>
+                                <span>{property.bathrooms} BA </span>
+                                <span>{property.sq_footage} SQFT </span>
+                              </Card.Text>
+                              <footer>{property.address}</footer>
+                            </Card.Body>
+                          </Card>
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })}
@@ -71,3 +77,23 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+const PropertyColumns = (propsList) => {
+  const groups = [[], [], []];
+  let col = 0;
+
+  for (const prop of propsList) {
+    if (col === 0) {
+      groups[0].push(prop);
+      col += 1;
+    } else if (col === 1) {
+      groups[1].push(prop);
+      col += 1;
+    } else {
+      groups[2].push(prop);
+      col = 0;
+    }
+  }
+
+  return groups;
+};
