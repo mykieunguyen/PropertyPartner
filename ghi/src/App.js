@@ -10,6 +10,7 @@ import MainPage from "./MainPage.js";
 import CreatePropertyForm from "./CreatePropertyForm.js";
 import SignUpForm from "./SignUpForm.js";
 import UserProperties from "./UserProperties.js";
+import PropertyDetail from "./PropertyDetail.js";
 
 function App() {
   // const [launchInfo, setLaunchInfo] = useState([]);
@@ -34,22 +35,23 @@ function App() {
   //   getData();
   // }, []);
   const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, '');
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
     <BrowserRouter basename={basename}>
       <Nav />
       <Routes>
-        <Route path="/" index element={<MainPage />} />
-      </Routes>
-      <Routes>
-        <Route path="login" element={<LoginForm />} />
-      </Routes>
-      <Routes>
-        <Route path="properties" element={<CreatePropertyForm />} />
-      </Routes>
-      <Routes>
-        <Route path="accounts" element={<SignUpForm />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="login">
+          <Route index element={<LoginForm />}></Route>
+        </Route>
+        <Route path="properties">
+          <Route index element={<CreatePropertyForm />} />
+          <Route exact path="/properties/:id" element={<PropertyDetail />} />
+        </Route>
+        <Route path="accounts">
+          <Route index element={<SignUpForm />} />
+        </Route>
       </Routes>
       <Routes>
         <Route path="properties/mine" element={<UserProperties />} />

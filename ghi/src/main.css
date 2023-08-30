@@ -1,5 +1,18 @@
+.properties-filter-container {
+  display: flex;
+}
 
+a {
+  color: black;
+  text-decoration: none;
+}
 
-.container {
-    color: red;
+.banner-container {
+  height: 40vh;
+  text-align: center;
+  padding-top: 5em;
+}
+
+.properties-container {
+  display: flex;
 }
