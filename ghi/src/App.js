@@ -45,16 +45,12 @@ function App() {
         <Route path="login">
           <Route index element={<LoginForm />}></Route>
         </Route>
-        <Route path="properties">
-          <Route index element={<CreatePropertyForm />} />
-          <Route exact path="/properties/:id" element={<PropertyDetail />} />
-        </Route>
+        <Route path="properties/mine" index element={<UserProperties />}/>
+        <Route path="properties/new" element={<CreatePropertyForm />} />
+        <Route path="properties/:id" element={<PropertyDetail />} />
         <Route path="accounts">
           <Route index element={<SignUpForm />} />
         </Route>
-      </Routes>
-      <Routes>
-        <Route path="properties/mine" element={<UserProperties />} />
       </Routes>
     </BrowserRouter>
   );

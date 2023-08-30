@@ -117,15 +117,25 @@ export const propertyPartnerApi = createApi({
         }
         return data;
       },
+    providesTags: ["properties"]
     }),
     deleteProperty: builder.mutation({
       query: (property_id) => ({
         url: `/api/properties/${property_id}`,
         method: 'delete',
         credentials: 'include',
-      })
+      }),
+    invalidatesTags: ["properties"]
     }),
-      invalidatesTags: ["Account"],
+    // updateProperty: builder.mutation({
+    //   query: ({property_id, ...data}) => ({
+    //     url: `/api/properties/${property_id}`,
+    //     method: 'put',
+    //     body: data,
+    //     credentials: 'include'
+    //   })
+    // }),
+    //   invalidatesTags: ["Account"],
     }),
   });
 
@@ -142,4 +152,5 @@ export const {
   useSignUpMutation,
   useGetPropertiesForAccountQuery,
   useDeletePropertyMutation,
+  // useUpdatePropertyMutation,
 } = propertyPartnerApi;

@@ -18,7 +18,7 @@ const Navcon = () => {
           <Nav className="me-auto">
             {!account && <Nav.Link href="/login">Login</Nav.Link>}
             {account && <Nav.Link onClick={logout}>Logout</Nav.Link>}
-            {account && <Nav.Link href="/properties">Add Property</Nav.Link>}
+            {account && <Nav.Link href="/properties/new">Add Property</Nav.Link>}
             {!account && <Nav.Link href="accounts">SignUp</Nav.Link>}
             {account && <Nav.Link href="/properties/mine">My properties</Nav.Link>}
           </Nav>

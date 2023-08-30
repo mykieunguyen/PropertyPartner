@@ -1,6 +1,6 @@
-import { useGetPropertiesForAccountQuery, useDeletePropertyMutation } from "./app/apiSlice";
+import { useGetPropertiesForAccountQuery, useDeletePropertyMutation, useUpdatePropertyMutation } from "./app/apiSlice";
 import Card from "react-bootstrap/Card";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 const UserProperties = () => {
@@ -40,7 +40,7 @@ const UserProperties = () => {
                       <span>{property.bedrooms} BDS </span>
                       <span>{property.bathrooms} BA </span>
                       <span>{property.sq_footage} SQFT </span>
-                      <button onClick={deleteProperty}>Unlist</button>
+                      <button className="btn btn-primary" onClick={() => deleteProperty(property.id)}>Unlist</button>
                     </Card.Text>
                     <footer>{property.address}</footer>
                   </Card.Body>
