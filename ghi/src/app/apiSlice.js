@@ -91,6 +91,15 @@ export const propertyPartnerApi = createApi({
       query: (property_id) => ({
         url: `/api/${property_id}/image`,
       }),
+      providesTags: ['images']
+    }),
+    deleteImage: builder.mutation({
+      query: (args) => ({
+        url: `api/${args.property_id}/image/${args.image_id}`,
+        method: 'delete',
+        credentials: 'include',
+      }),
+      invalidatesTags: ['images']
     }),
     signUp: builder.mutation({
       query: (body) => ({
@@ -127,15 +136,14 @@ export const propertyPartnerApi = createApi({
       }),
     invalidatesTags: ["properties"]
     }),
-    // updateProperty: builder.mutation({
-    //   query: ({property_id, ...data}) => ({
-    //     url: `/api/properties/${property_id}`,
-    //     method: 'put',
-    //     body: data,
-    //     credentials: 'include'
-    //   })
-    // }),
-    //   invalidatesTags: ["Account"],
+    updateProperty: builder.mutation({
+      query: (args) => ({
+        url: `/api/properties/${args.property_id}`,
+        method: 'put',
+        body: args.data,
+        credentials: 'include'
+      })
+    }),
     }),
   });
 
@@ -152,5 +160,6 @@ export const {
   useSignUpMutation,
   useGetPropertiesForAccountQuery,
   useDeletePropertyMutation,
-  // useUpdatePropertyMutation,
+  useUpdatePropertyMutation,
+  useDeleteImageMutation,
 } = propertyPartnerApi;

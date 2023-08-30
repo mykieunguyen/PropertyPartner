@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { useGetPropertiesForAccountQuery, useDeletePropertyMutation, useUpdatePropertyMutation } from "./app/apiSlice";
 import Card from "react-bootstrap/Card";
 // import { useNavigate } from 'react-router-dom';
@@ -41,6 +42,12 @@ const UserProperties = () => {
                       <span>{property.bathrooms} BA </span>
                       <span>{property.sq_footage} SQFT </span>
                       <button className="btn btn-primary" onClick={() => deleteProperty(property.id)}>Unlist</button>
+                      <button className="btn btn-primary"><NavLink
+                      to={{
+                        pathname: `/properties/${property.id}/edit`,
+                      }}
+                      >Edit
+                      </NavLink></button>
                     </Card.Text>
                     <footer>{property.address}</footer>
                   </Card.Body>
