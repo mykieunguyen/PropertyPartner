@@ -4,47 +4,44 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const SignUpForm = () => {
-    const navigate = useNavigate()
-    const[username, setUsername] = useState('')
-    const[password, setPassword] = useState('')
-    const[passwordConfirmation, setPasswordConfirmation] = useState('')
-    const[email, setEmail] = useState('')
-    const[first_name, setFirstName] = useState('')
-    const[last_name, setLastName] = useState('')
-    const[phone_number, setPhoneNumber] = useState('')
-    const[errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [email, setEmail] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const[signup, signupResponse] = useSignUpMutation()
+  const [signup, signupResponse] = useSignUpMutation();
 
-    useEffect(() => {
-        if (signupResponse.isSuccess) {navigate('/')}
-        else if (signupResponse.isError) {
-            setErrorMessage(
-            'Username or email already exists!')
-            return;
-        }
-    },
-    [signupResponse])
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('sign up');
-        console.log({username, password, passwordConfirmation, email,
-        first_name, last_name, phone_number})
-        if (password !== passwordConfirmation) {
-            setErrorMessage(
-            'Password and confirmation do not match!')
-            return;
+  useEffect(() => {
+    if (signupResponse.isSuccess) {
+      navigate("/");
+    } else if (signupResponse.isError) {
+      setErrorMessage("Username or email already exists!");
+      return;
     }
-    signup({username, password, email, first_name, last_name, phone_number})
-}
+  }, [signupResponse]);
 
-    return (
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== passwordConfirmation) {
+      setErrorMessage("Password and confirmation do not match!");
+      return;
+    }
+    signup({ username, password, email, first_name, last_name, phone_number });
+  };
+
+  return (
     <div className="card text-bg-light mb-3">
       <h5 className="card-header">Sign Up!</h5>
-      {errorMessage && <div className="alert alert-danger" role="alert">
-        {errorMessage}
-        </div>}
+      {errorMessage && (
+        <div className="alert alert-danger" role="alert">
+          {errorMessage}
+        </div>
+      )}
       <div className="card-body">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="mb-3">
@@ -124,8 +121,6 @@ const SignUpForm = () => {
       </div>
     </div>
   );
+};
 
-}
-
-
-export default SignUpForm
+export default SignUpForm;

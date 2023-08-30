@@ -1,5 +1,6 @@
 import { useGetPropertiesQuery } from "./app/apiSlice";
 import Card from "react-bootstrap/Card";
+import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./main.css";
 
@@ -50,7 +51,15 @@ const MainPage = () => {
                               />
                             )}
                             <Card.Body>
-                              <Card.Title>${property.price}</Card.Title>
+                              <Card.Title>
+                                <NavLink
+                                  to={{
+                                    pathname: `/properties/${property.id}`,
+                                  }}
+                                >
+                                  ${property.price}
+                                </NavLink>
+                              </Card.Title>
                               <Card.Subtitle>
                                 {property.city}, {property.state}
                               </Card.Subtitle>

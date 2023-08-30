@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 const MainPageBanner = () => {
   const { data: account } = useGetTokenQuery();
-  console.log(account);
 
   return (
     <div className="banner-container">

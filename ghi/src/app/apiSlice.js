@@ -66,21 +66,26 @@ export const propertyPartnerApi = createApi({
         return data;
       },
     }),
+    getProperty: builder.query({
+      query: (property_id) => ({
+        url: `/api/properties/${property_id}`,
+      }),
+    }),
     createProperty: builder.mutation({
-      query: data => ({
-        url: '/api/properties',
+      query: (data) => ({
+        url: "/api/properties",
         body: data,
-        method: 'post',
+        method: "post",
         credentials: "include",
-      })
+      }),
     }),
     createImages: builder.mutation({
       query: (args) => ({
         url: `/api/${args.property_id}/image`,
         body: args.data,
-        method: 'post',
-        credentials: 'include',
-      })
+        method: "post",
+        credentials: "include",
+      }),
     }),
     getImages: builder.query({
       query: (property_id) => ({
@@ -89,13 +94,13 @@ export const propertyPartnerApi = createApi({
     }),
     signUp: builder.mutation({
       query: (body) => ({
-        url: '/api/accounts',
+        url: "/api/accounts",
         body,
-        method: 'post',
-        credentials: 'include'
+        method: "post",
+        credentials: "include",
       }),
-      invalidatesTags: ["Account"]
-    })
+      invalidatesTags: ["Account"],
+    }),
   }),
 });
 
@@ -104,6 +109,7 @@ export const {
   useLogoutMutation,
   useLoginMutation,
   useGetPropertiesQuery,
+  useGetPropertyQuery,
   useGetImagesQuery,
   useCreatePropertyMutation,
   useCreateImagesMutation,
