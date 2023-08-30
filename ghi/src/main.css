@@ -1,5 +1,14 @@
-.container {
-  margin: 1em;
+.properties-container {
   display: flex;
-  justify-content: space-evenly;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.banner-container {
+  height: 40vh;
+  text-align: center;
+  padding-top: 5em;
 }
