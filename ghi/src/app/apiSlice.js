@@ -95,6 +95,30 @@ export const propertyPartnerApi = createApi({
         credentials: 'include'
       }),
       invalidatesTags: ["Account"]
+    }),
+    getPropertiesForAccount: builder.query({
+      query: () => ({
+        url: `/api/properties/mine`,
+        credentials: 'include',
+      }),
+      transformResponse: async (response) => {
+        const data = [];
+        for (let property of response) {
+          const images = await fetchImages(property.id);
+          data.push({
+            ...property,
+            images,
+          });
+        }
+        return data;
+      },
+    }),
+    deleteProperty: builder.mutation({
+      query: (property_id) => ({
+        url: `/api/properties/${property_id}`,
+        method: 'delete',
+        credentials: 'include',
+      })
     })
   }),
 });
@@ -108,4 +132,6 @@ export const {
   useCreatePropertyMutation,
   useCreateImagesMutation,
   useSignUpMutation,
+  useGetPropertiesForAccountQuery,
+  useDeletePropertyMutation,
 } = propertyPartnerApi;

@@ -9,6 +9,7 @@ import LoginForm from "./LoginForm.js";
 import MainPage from "./MainPage.js";
 import CreatePropertyForm from "./CreatePropertyForm.js";
 import SignUpForm from "./SignUpForm.js";
+import UserProperties from "./UserProperties.js";
 
 function App() {
   // const [launchInfo, setLaunchInfo] = useState([]);
@@ -49,6 +50,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="accounts" element={<SignUpForm />} />
+      </Routes>
+      <Routes>
+        <Route path="properties/mine" element={<UserProperties />} />
       </Routes>
     </BrowserRouter>
   );
