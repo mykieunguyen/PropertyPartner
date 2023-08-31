@@ -33,17 +33,18 @@ function CreateImageForm (props) {
             return
         }
         for (let image of imageList) {
+          if (!image) {continue}
             await createImages({'data': {"picture_url": image}, "property_id": property_id})
         }
     }
 
     useEffect(() =>{
       if (result.isSuccess) {
-        navigate("/")
+        navigate("/properties/mine")
       } else if (result.isError) {
         setError(result.error);
     }
-    }, [result, setError])
+    }, [result, setError, navigate])
 
     return (
         <div className="row">

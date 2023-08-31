@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useUpdatePropertyMutation, useGetPropertyQuery, useGetImagesQuery, useDeleteImageMutation} from './app/apiSlice';
+import { useUpdatePropertyMutation, useGetPropertyQuery, useGetImagesQuery, useDeleteImageMutation, useCreateImagesMutation} from './app/apiSlice';
 import {usStates} from './states.js';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 
 function EditPropertyForm () {
@@ -32,9 +33,15 @@ function EditPropertyForm () {
 
     const [state, setState] = useState('');
 
+    const [imageUrl, setImageUrl] = useState('');
+
     const [updateProperty] = useUpdatePropertyMutation();
 
     const [deleteImage] = useDeleteImageMutation();
+
+    const [createImages] = useCreateImagesMutation();
+
+    const navigate = useNavigate();
 
 
     useEffect (() => {
@@ -56,9 +63,16 @@ function EditPropertyForm () {
             return <p>...loading</p>
    }
 
+    const handleImageUpload = (e) => {
+      e.preventDefault();
+      createImages({"data": {"picture_url": imageUrl}, "property_id": propertyId});
+      setImageUrl('');
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         updateProperty({"data": {price, city, bedrooms, bathrooms, address, sq_footage, year_built, multistory, new_build, state}, "property_id": propertyId});
+        navigate('/properties/mine');
     }
 
       return (
@@ -112,11 +126,15 @@ function EditPropertyForm () {
                     })}
                 </select>
                 <label htmlFor="state">State</label>
+              <div>
+                <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} type="text"></input>
+                <button onClick={handleImageUpload}>Upload</button>
+              </div>
               </div>
               {getImages && getImages.map(image => {
                 return(
                 <div key={image.id}>
-                    <p>{image.picture_url}</p>
+                    <img alt='' src={image.picture_url}></img>
                     <button onClick={() => deleteImage({"property_id": propertyId, "image_id": image.id})}>Delete</button>
                 </div>
                 )

@@ -86,6 +86,7 @@ export const propertyPartnerApi = createApi({
         method: "post",
         credentials: "include",
       }),
+     invalidatesTags: ['images']
     }),
     getImages: builder.query({
       query: (property_id) => ({
@@ -142,7 +143,8 @@ export const propertyPartnerApi = createApi({
         method: 'put',
         body: args.data,
         credentials: 'include'
-      })
+      }),
+    invalidatesTags: ["properties"]
     }),
     }),
   });
