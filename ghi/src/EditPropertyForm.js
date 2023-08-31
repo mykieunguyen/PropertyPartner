@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useUpdatePropertyMutation, useGetPropertyQuery, useGetImagesQuery, useDeleteImageMutation, useCreateImagesMutation} from './app/apiSlice';
 import {usStates} from './states.js';
 import { useParams, useNavigate } from "react-router-dom";
+import validator from 'validator';
 
 
 
@@ -43,6 +44,8 @@ function EditPropertyForm () {
 
     const navigate = useNavigate();
 
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     useEffect (() => {
       if (!propertyLoading) {
@@ -65,8 +68,10 @@ function EditPropertyForm () {
 
     const handleImageUpload = (e) => {
       e.preventDefault();
+      if (validator.isURL(imageUrl)) {
       createImages({"data": {"picture_url": imageUrl}, "property_id": propertyId});
       setImageUrl('');
+      } else {setErrorMessage('Invalid URL')}
     }
 
     const handleSubmit = async (e) => {
@@ -79,7 +84,7 @@ function EditPropertyForm () {
         <div className="row">
         <div className="offset-3 col-6">
             <h1>Edit a Property</h1>
-            <form onSubmit={handleSubmit} id="create-property-form">
+            <form id="create-property-form">
                <div className="form-floating mb-3">
                 <input value={price} onChange={(e) => setPrice(e.target.value)} placeholder="0" required type="number" name="price" id="price" className="form-control" />
                 <label htmlFor="price">price</label>
@@ -126,20 +131,25 @@ function EditPropertyForm () {
                     })}
                 </select>
                 <label htmlFor="state">State</label>
+              {errorMessage && (
+              <div className="alert alert-danger" role="alert">
+              {errorMessage}
+              </div>
+              )}
               <div>
-                <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} type="text"></input>
-                <button onClick={handleImageUpload}>Upload</button>
+                <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} type="url" pattern="https://.*"></input>
+                <button type="button" onClick={handleImageUpload}>Upload</button>
               </div>
               </div>
               {getImages && getImages.map(image => {
                 return(
                 <div key={image.id}>
-                    <img alt='' src={image.picture_url}></img>
-                    <button onClick={() => deleteImage({"property_id": propertyId, "image_id": image.id})}>Delete</button>
+                    <img style={{ width: "200px" }} alt='' src={image.picture_url}></img>
+                    <button type="button" onClick={() => deleteImage({"property_id": propertyId, "image_id": image.id})}>Delete</button>
                 </div>
                 )
                 })}
-              <button className="btn btn-primary">Update</button>
+              <button onClick={handleSubmit} className="btn btn-primary">Update</button>
             </form>
           </div>
         </div>

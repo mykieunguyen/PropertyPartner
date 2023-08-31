@@ -86,13 +86,13 @@ export const propertyPartnerApi = createApi({
         method: "post",
         credentials: "include",
       }),
-     invalidatesTags: ['images']
+     invalidatesTags: ['create_images']
     }),
     getImages: builder.query({
       query: (property_id) => ({
         url: `/api/${property_id}/image`,
       }),
-      providesTags: ['images']
+      providesTags: ['delete_images', 'create_images']
     }),
     deleteImage: builder.mutation({
       query: (args) => ({
@@ -100,7 +100,7 @@ export const propertyPartnerApi = createApi({
         method: 'delete',
         credentials: 'include',
       }),
-      invalidatesTags: ['images']
+      invalidatesTags: ['delete_images']
     }),
     signUp: builder.mutation({
       query: (body) => ({
