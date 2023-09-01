@@ -1,5 +1,10 @@
+.mainpage {
+  margin: 0em;
+}
+
 .properties-filter-container {
   display: flex;
+  margin-top: 3em;
 }
 
 a {
@@ -7,12 +12,175 @@ a {
   text-decoration: none;
 }
 
-.banner-container {
-  height: 40vh;
-  text-align: center;
-  padding-top: 5em;
+.search-container {
+  display: flex;
+  gap: 2em;
+  margin: 4em 20vw 4em 20vw;
 }
 
 .properties-container {
   display: flex;
+  width: 70%;
+  height: 110vh;
+  flex-wrap: wrap;
+}
+
+.properties-container > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.properties-container img {
+  height: 20vh;
+  object-fit: cover;
+}
+
+.filter-container {
+  padding: 5em 5em;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.filter-container div {
+  margin-bottom: 0.5em;
+}
+
+.filter-container p {
+  margin-bottom: 0em;
+}
+
+.form-range::-webkit-slider-thumb {
+  background: #b4946d;
+}
+.form-range::-moz-range-thumb {
+  background: #b4946d;
+}
+
+.form-range::-ms-thumb {
+  background: #b4946d;
+}
+
+.filter-full-width > div {
+  display: flex;
+  justify-content: space-between;
+}
+.min-max {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.min-max div {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 40%;
+  flex-wrap: wrap;
+}
+
+.filter-bed-bath {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4em;
+}
+
+.filter-bed-bath input {
+  text-align: center;
+}
+
+.filter-container-bottom {
+  flex-wrap: wrap;
+}
+
+.filter-container-bottom h6:first-child {
+  margin: 1em 0em 2em 0em;
+}
+
+.filter-multistory-new > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-multistory-new div div {
+  width: 50%;
+}
+
+.filter-multistory-new label {
+  margin-left: 0.2em;
+}
+
+.filter-container button {
+  margin: 0% 30%;
+}
+
+.card {
+  padding: 0em;
+}
+
+.card-text {
+  margin: 1em 0em;
+}
+
+.card-text span {
+  padding: 0.2em 0.5em;
+  border-radius: 0.3em;
+}
+
+.card i {
+  margin-right: 0.5em;
+}
+
+.card footer {
+  min-height: 4vh;
+  overflow: hidden;
+}
+
+.btn-secondary {
+  width: 8em;
+  background-color: #b4946d;
+}
+
+#search-button {
+  width: 2.5em;
+  border-radius: 50%;
+}
+
+/* BANNER */
+
+.banner-container {
+  height: 40vh;
+  /* background-image: url("https://images.unsplash.com/photo-1602872030378-f30ea2947b03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2652&q=80");
+  background-position-y: 55%;
+  background-position-x: 65%;
+  display: flex; */
+  background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80");
+  background-position-y: 62%;
+  background-position-x: 65%;
+  display: flex;
+}
+
+.banner-container div {
+  text-align: center;
+  min-width: 25%;
+  max-width: 30%;
+  align-self: center;
+  margin-left: 15em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  color: white;
+  background-color: #b4946d30;
+  border-radius: 1em;
+}
+
+.banner-container button {
+  background-color: white;
+  color: #6c757d;
+  border: none;
 }

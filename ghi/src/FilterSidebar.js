@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const FilterSidebar = (props) => {
-  const [searchInput, setSearchInput] = useState("");
   const [filterPrice, setFilterPrice] = useState("");
   const [filterFootage, setFilterFootage] = useState("");
   const [minNumOfBeds, setMinNumOfBeds] = useState(0);
@@ -13,19 +12,25 @@ const FilterSidebar = (props) => {
   const [filterNew, setFilterNew] = useState(false);
   const [filterOld, setFilterOld] = useState(false);
 
+  useEffect(() => {
+    setFilterPrice("");
+    setFilterFootage("");
+    setMinNumOfBeds(0);
+    setMaxNumOfBaths(100);
+    setMinNumOfBaths(0);
+    setMaxNumOfBaths(100);
+    setFilterSinglestory(false);
+    setFilterMultistory(false);
+    setFilterNew(false);
+    setFilterOld(false);
+  }, [props.properties]);
+
   const handleFilterSubmit = (e) => {
     e.preventDefault();
     const multistoryState = findStateBool(filterMultistory, filterSinglestory);
     const newState = findStateBool(filterNew, filterOld);
+    let filteredProperties = [...props.properties];
 
-    let filteredProperties = [...props.originalProps];
-    if (searchInput) {
-      filteredProperties = filteredProperties.filter(
-        (property) =>
-          property.city.toLowerCase().includes(searchInput.toLowerCase()) ||
-          property.state.toLowerCase().includes(searchInput.toLowerCase())
-      );
-    }
     if (filterPrice) {
       filteredProperties = filteredProperties.filter(
         (prop) => prop.price < parseInt(filterPrice)
@@ -57,29 +62,18 @@ const FilterSidebar = (props) => {
         (prop) => prop.new_build === newState
       );
     }
-    props.setProps(filteredProperties);
+    props.setFilteredProperties(filteredProperties);
   };
 
   return (
     <>
-      <div>
-        <div className="input-group">
-          <div className="form-outline">
-            <h6>Search by City or State</h6>
-            <input
-              type="search"
-              id="form1"
-              onChange={(e) => setSearchInput(e.target.value)}
-              className="form-control"
-              placeholder="city or state"
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="price" className="form-label">
-              Max Price
-            </label>
+      <div className="filter-container">
+        <div className="filter-container-top">
+          <div className="filter-full-width">
+            <div>
+              <h6>Max Price</h6>
+              {filterPrice && <p>${parseInt(filterPrice).toLocaleString()}</p>}
+            </div>
             <input
               type="range"
               className="form-range"
@@ -91,12 +85,14 @@ const FilterSidebar = (props) => {
               }}
               id="price"
             />
-            {filterPrice && <p>${filterPrice}</p>}
           </div>
-          <div>
-            <label htmlFor="square_footage" className="form-label">
-              Max Square Feet
-            </label>
+          <div className="filter-full-width">
+            <div>
+              <h6>Max Square Feet</h6>
+              {filterFootage && (
+                <p>{parseInt(filterFootage).toLocaleString()} sqft</p>
+              )}
+            </div>
             <input
               type="range"
               className="form-range"
@@ -108,98 +104,125 @@ const FilterSidebar = (props) => {
               }}
               id="square_footage"
             />
-            {filterFootage && <p>{filterFootage} sq feet</p>}
           </div>
-          <div>
-            <h6>Bedrooms</h6>
-            <label>min</label>
-            <input
-              type="number"
-              max="100"
-              value={minNumOfBeds}
-              onChange={(e) => {
-                setMinNumOfBeds(e.target.value);
-              }}
-              id="square_footage"
-            />
-            <label>max</label>
-            <input
-              type="number"
-              max="100"
-              value={maxNumOfBeds}
-              onChange={(e) => {
-                setMaxNumOfBeds(e.target.value);
-              }}
-              id="square_footage"
-            />
-            <h6>Bathrooms</h6>
-            <label>min</label>
-            <input
-              type="number"
-              max="100"
-              value={minNumOfBaths}
-              onChange={(e) => {
-                setMinNumOfBaths(e.target.value);
-              }}
-              id="square_footage"
-            />
-            <label>max</label>
-            <input
-              type="number"
-              max="100"
-              value={maxNumOfBaths}
-              onChange={(e) => {
-                setMaxNumOfBaths(e.target.value);
-              }}
-              id="square_footage"
-            />
+          <div className="filter-bed-bath">
+            <div>
+              <h6>Bedrooms</h6>
+            </div>
+            <div className="min-max">
+              <div>
+                <label>min</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  max="100"
+                  value={minNumOfBeds}
+                  onChange={(e) => {
+                    setMinNumOfBeds(e.target.value);
+                  }}
+                  id="square_footage"
+                />
+              </div>
+              <div>
+                <label>max</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  max="100"
+                  value={maxNumOfBeds}
+                  onChange={(e) => {
+                    setMaxNumOfBeds(e.target.value);
+                  }}
+                  id="square_footage"
+                />
+              </div>
+            </div>
+            <div>
+              <h6>Bathrooms</h6>
+            </div>
+            <div className="min-max">
+              <div>
+                <label>min</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  max="100"
+                  value={minNumOfBaths}
+                  onChange={(e) => {
+                    setMinNumOfBaths(e.target.value);
+                  }}
+                  id="square_footage"
+                />
+              </div>
+              <div>
+                <label>max</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  max="100"
+                  value={maxNumOfBaths}
+                  onChange={(e) => {
+                    setMaxNumOfBaths(e.target.value);
+                  }}
+                  id="square_footage"
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div>
+        <div className="filter-container-bottom">
           <h6>Property Characteristics</h6>
-          <div>
+          <div className="filter-multistory-new">
             <div>
-              <label htmlFor="singlestory">Singlestory</label>
-              <input
-                type="checkbox"
-                id="singlestory"
-                value={filterSinglestory}
-                onChange={(e) => setFilterSinglestory(!filterSinglestory)}
-              />
+              <div>
+                <input
+                  type="checkbox"
+                  id="singlestory"
+                  checked={filterSinglestory}
+                  onChange={(e) => setFilterSinglestory(!filterSinglestory)}
+                />
+                <label htmlFor="singlestory">Singlestory</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="multistory"
+                  checked={filterMultistory}
+                  onChange={(e) => setFilterMultistory(!filterMultistory)}
+                />
+                <label htmlFor="multistory">Multistory</label>
+              </div>
             </div>
+
             <div>
-              <label htmlFor="multistory">Multistory</label>
-              <input
-                type="checkbox"
-                id="new_build"
-                value={filterMultistory}
-                onChange={(e) => setFilterMultistory(!filterMultistory)}
-              />
-            </div>
-          </div>
-          <div>
-            <div>
-              <label htmlFor="new_build">New</label>
-              <input
-                type="checkbox"
-                id="new_build"
-                value={filterNew}
-                onChange={(e) => setFilterNew(!filterNew)}
-              />
-            </div>
-            <div>
-              <label htmlFor="old_build">Old</label>
-              <input
-                type="checkbox"
-                name="old_build"
-                id="old_build"
-                value={filterOld}
-                onChange={(e) => setFilterOld(!filterOld)}
-              />
+              <div>
+                <input
+                  type="checkbox"
+                  id="new_build"
+                  checked={filterNew}
+                  onChange={(e) => setFilterNew(!filterNew)}
+                />
+                <label htmlFor="new_build">New</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="old_build"
+                  checked={filterOld}
+                  onChange={(e) => setFilterOld(!filterOld)}
+                />
+                <label htmlFor="old_build">Old</label>
+              </div>
             </div>
           </div>
         </div>
-        <button onClick={handleFilterSubmit}>APPLY</button>
+        <button
+          onClick={handleFilterSubmit}
+          type="button"
+          className="btn btn-secondary"
+        >
+          APPLY
+        </button>
       </div>
     </>
   );

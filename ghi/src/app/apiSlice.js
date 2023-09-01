@@ -70,6 +70,7 @@ export const propertyPartnerApi = createApi({
       query: (property_id) => ({
         url: `/api/properties/${property_id}`,
       }),
+      providesTags: ["property_detail"],
     }),
     createProperty: builder.mutation({
       query: (data) => ({
@@ -86,21 +87,21 @@ export const propertyPartnerApi = createApi({
         method: "post",
         credentials: "include",
       }),
-     invalidatesTags: ['create_images']
+      invalidatesTags: ["create_images"],
     }),
     getImages: builder.query({
       query: (property_id) => ({
         url: `/api/${property_id}/image`,
       }),
-      providesTags: ['delete_images', 'create_images']
+      providesTags: ["delete_images", "create_images"],
     }),
     deleteImage: builder.mutation({
       query: (args) => ({
         url: `api/${args.property_id}/image/${args.image_id}`,
-        method: 'delete',
-        credentials: 'include',
+        method: "delete",
+        credentials: "include",
       }),
-      invalidatesTags: ['delete_images']
+      invalidatesTags: ["delete_images"],
     }),
     signUp: builder.mutation({
       query: (body) => ({
@@ -109,12 +110,12 @@ export const propertyPartnerApi = createApi({
         method: "post",
         credentials: "include",
       }),
-      invalidatesTags: ["Account"]
+      invalidatesTags: ["Account"],
     }),
     getPropertiesForAccount: builder.query({
       query: () => ({
         url: `/api/properties/mine`,
-        credentials: 'include',
+        credentials: "include",
       }),
       transformResponse: async (response) => {
         const data = [];
@@ -127,28 +128,27 @@ export const propertyPartnerApi = createApi({
         }
         return data;
       },
-    providesTags: ["properties"]
+      providesTags: ["properties"],
     }),
     deleteProperty: builder.mutation({
       query: (property_id) => ({
         url: `/api/properties/${property_id}`,
-        method: 'delete',
-        credentials: 'include',
+        method: "delete",
+        credentials: "include",
       }),
-    invalidatesTags: ["properties"]
+      invalidatesTags: ["properties"],
     }),
     updateProperty: builder.mutation({
       query: (args) => ({
         url: `/api/properties/${args.property_id}`,
-        method: 'put',
+        method: "put",
         body: args.data,
-        credentials: 'include'
+        credentials: "include",
       }),
-    invalidatesTags: ["properties"]
+      invalidatesTags: ["properties", "property_detail"],
     }),
-    }),
-  });
-
+  }),
+});
 
 export const {
   useGetTokenQuery,
