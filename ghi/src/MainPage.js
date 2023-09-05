@@ -92,7 +92,7 @@ const MainPage = () => {
                               </NavLink>
                             </Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">
-                              <i class="fa-solid fa-location-dot"></i>
+                              <i className="fa-solid fa-location-dot"></i>
                               {property.city}, {property.state}
                             </Card.Subtitle>
                             <Card.Text>
