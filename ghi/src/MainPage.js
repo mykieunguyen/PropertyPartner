@@ -142,7 +142,7 @@ const PropertyColumns = (propsList) => {
   return groups;
 };
 
-function capitalizeFirstLetter(string) {
+export function capitalizeFirstLetter(string) {
   let converted = string
     .toLowerCase()
     .split(" ")

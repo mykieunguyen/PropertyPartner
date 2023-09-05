@@ -1,0 +1,91 @@
+.container,
+.container-fluid {
+  padding: 0em;
+}
+
+/* IMAGE CONT */
+.img-container {
+  display: flex;
+  height: 55vh;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 3em;
+  gap: 2em;
+  /* border-bottom: solid black 1px; */
+  /* background-image: url("https://images.unsplash.com/photo-1532456745301-b2c645d8b80d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80"); */
+  background-color: #be9d7340;
+}
+
+.main-img {
+  width: 50%;
+  height: 100%;
+}
+
+.main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5em;
+}
+
+.extra-img {
+  width: 40%;
+  height: 100%;
+  padding: 3em 0em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2em;
+}
+
+.extra-img > div {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  gap: 2em;
+}
+.extra-img img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+/* DETAIL CONT */
+.detail_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prop_container {
+  padding: 2em;
+}
+
+.prop_container i,
+.contacts_container i {
+  font-size: large;
+}
+
+.prop_container div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bed-bath {
+  flex-wrap: wrap;
+  margin: 2em 0em;
+  display: flex;
+  justify-content: space-evenly;
+}
+.bed-bath h6 {
+  background-color: #be9d7399;
+  padding: 0.5em 0.8em;
+  border-radius: 0.3em;
+}
+
+.contacts_container {
+  padding: 2em;
+  border-radius: 0.5em;
+}
+
+.contacts_container > div p:first-child {
+  font-weight: bold;
+}
