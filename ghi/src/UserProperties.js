@@ -1,14 +1,34 @@
 import { NavLink } from "react-router-dom";
-import { useGetPropertiesForAccountQuery, useDeletePropertyMutation, useUpdatePropertyMutation } from "./app/apiSlice";
+import { useState } from "react";
+import { useGetPropertiesForAccountQuery, useDeletePropertyMutation } from "./app/apiSlice";
 import Card from "react-bootstrap/Card";
-// import { useNavigate } from 'react-router-dom';
+import DeleteConfirmation from "./DeleteConfirmation";
 
 
 const UserProperties = () => {
-    const { data: properties, isLoading } = useGetPropertiesForAccountQuery();
+    const { data: properties, isLoading} = useGetPropertiesForAccountQuery();
 
     const [deleteProperty] = useDeletePropertyMutation();
 
+    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+
+    const [deleteMessage, setDeleteMessage] = useState(null);
+
+    const [propertyId, setPropertyId] = useState(null);
+
+    const showDeleteModal = () => {
+      setDeleteMessage('Are you sure you want to delete the property?');
+      setDisplayConfirmationModal(true);
+    }
+
+    const hideConfirmationModal = () => {
+      setDisplayConfirmationModal(false);
+    }
+
+    const submitDelete = (property) => {
+      setDisplayConfirmationModal(false);
+      deleteProperty(property);
+    }
 
     if (isLoading) {return <div>Loading...</div>};
 
@@ -41,7 +61,10 @@ const UserProperties = () => {
                       <span>{property.bedrooms} BDS </span>
                       <span>{property.bathrooms} BA </span>
                       <span>{property.sq_footage} SQFT </span>
-                      <button className="btn btn-primary" onClick={() => deleteProperty(property.id)}>Unlist</button>
+                      <button className="btn btn-primary" onClick={() => {
+                      setPropertyId(property.id)
+                      showDeleteModal()
+                      }}>Unlist</button>
                       <button className="btn btn-primary"><NavLink
                       to={{
                         pathname: `/properties/${property.id}/edit`,
@@ -52,6 +75,7 @@ const UserProperties = () => {
                     <footer>{property.address}</footer>
                   </Card.Body>
                 </Card>
+                <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={() => submitDelete(propertyId)} hideModal={hideConfirmationModal} message={deleteMessage} />
               </div>
             );
           })}
