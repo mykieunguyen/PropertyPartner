@@ -15,7 +15,6 @@ const PropertyDetail = () => {
     return <p>Loading...</p>;
   }
 
-  console.log(property);
   return (
     <div className="container-fluid">
       <div className="img-container">
@@ -68,7 +67,7 @@ const PropertyDetail = () => {
         <div className="container">
           <div className="contacts_container">
             <h3>
-              <i class="fa-solid fa-address-card"> Contacts</i>
+              <i className="fa-solid fa-address-card"> Contacts</i>
             </h3>
             <div>
               <p>

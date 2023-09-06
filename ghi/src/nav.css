@@ -1,0 +1,26 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  margin: 0em;
+  padding: 0em 1em;
+}
+
+.left-nav,
+.right-nav {
+  width: 30%;
+  display: flex;
+}
+
+.navbar-brand {
+  width: 40%;
+  text-align: center;
+}
+
+.right-nav {
+  justify-content: flex-end;
+}
+
+.fa-key {
+  color: #a58964;
+}

@@ -1,3 +1,4 @@
+import "./nav.css";
 import { NavLink } from "react-router-dom";
 import { useGetTokenQuery } from "./app/apiSlice";
 import { useLogoutMutation } from "./app/apiSlice";
@@ -12,17 +13,27 @@ const Navcon = () => {
 
   return (
     <>
-      <Navbar bg="light" data-bs-theme="light">
-        <Container>
-          <Navbar.Brand href="/">Property Partner</Navbar.Brand>
-          <Nav className="me-auto">
-            {!account && <Nav.Link href="/login">Login</Nav.Link>}
-            {account && <Nav.Link onClick={logout}>Logout</Nav.Link>}
-            {account && <Nav.Link href="/properties/new">Add Property</Nav.Link>}
-            {!account && <Nav.Link href="accounts">SignUp</Nav.Link>}
-            {account && <Nav.Link href="/properties/mine">My properties</Nav.Link>}
+      <Navbar className="navbar sticky-top navbar-light bg-light">
+        <div className="nav-container">
+          <Nav className="left-nav">
+            {account && (
+              <Nav.Link href="/properties/new">Add Property</Nav.Link>
+            )}
+            {account && (
+              <Nav.Link href="/properties/mine">My properties</Nav.Link>
+            )}
           </Nav>
-        </Container>
+          <Navbar.Brand href="/">
+            <span>Property </span>
+            <i className="fa-solid fa-key"></i>
+            <span> Partner</span>
+          </Navbar.Brand>{" "}
+          <Nav className="right-nav">
+            {!account && <Nav.Link href="/login">Login</Nav.Link>}
+            {!account && <Nav.Link href="accounts">Sign up</Nav.Link>}
+            {account && <Nav.Link onClick={logout}>Logout</Nav.Link>}
+          </Nav>
+        </div>
       </Navbar>
     </>
   );
