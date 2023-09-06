@@ -12,6 +12,7 @@ import SignUpForm from "./SignUpForm.js";
 import UserProperties from "./UserProperties.js";
 import PropertyDetail from "./PropertyDetail.js";
 import EditPropertyForm from "./EditPropertyForm.js";
+import CreateImageForm from "./CreateImageForm.js";
 
 function App() {
   // const [launchInfo, setLaunchInfo] = useState([]);
@@ -46,10 +47,12 @@ function App() {
         <Route path="login">
           <Route index element={<LoginForm />}></Route>
         </Route>
-        <Route path="properties/mine" index element={<UserProperties />}/>
+        <Route path="properties/mine" index element={<UserProperties />} />
         <Route path="properties/new" element={<CreatePropertyForm />} />
         <Route path="properties/:id" element={<PropertyDetail />} />
-        <Route path="properties/:id/edit" element={<EditPropertyForm />}/>
+        <Route path="properties/:id/edit" element={<EditPropertyForm />} />
+        <Route path="images" element={<CreateImageForm />} />
+
         <Route path="accounts">
           <Route index element={<SignUpForm />} />
         </Route>

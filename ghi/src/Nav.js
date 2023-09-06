@@ -16,6 +16,7 @@ const Navcon = () => {
       <Navbar className="navbar sticky-top navbar-light bg-light">
         <div className="nav-container">
           <Nav className="left-nav">
+            <Nav.Link href="/">Home</Nav.Link>
             {account && (
               <Nav.Link href="/properties/new">Add Property</Nav.Link>
             )}
