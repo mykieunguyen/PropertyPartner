@@ -51,8 +51,6 @@ function App() {
         <Route path="properties/new" element={<CreatePropertyForm />} />
         <Route path="properties/:id" element={<PropertyDetail />} />
         <Route path="properties/:id/edit" element={<EditPropertyForm />} />
-        <Route path="images" element={<CreateImageForm />} />
-
         <Route path="accounts">
           <Route index element={<SignUpForm />} />
         </Route>

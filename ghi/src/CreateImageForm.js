@@ -38,33 +38,40 @@ function CreateImageForm(props) {
   };
 
   return (
-    <div>
-      <div>
-        {errorMessage && (
-          <div className="alert alert-danger" role="alert">
-            {errorMessage}
-          </div>
-        )}
-        <input
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          type="url"
-          pattern="https://.*"
-        ></input>
-        <button type="button" onClick={handleImageUpload}>
-          Upload
-        </button>
+    <div className="image-form">
+      {errorMessage && (
+        <div className="alert alert-danger" role="alert">
+          {errorMessage}
+        </div>
+      )}
+      <div className="image-upload-container">
+        <h3>
+          <i class="fa-solid fa-images"></i> Upload Property Images
+        </h3>
+        <div>
+          <input
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="https://images.unsplash.com/photo"
+            type="url"
+            pattern="https://.*"
+            className="form-control"
+            id="image_url"
+          ></input>
+          <button
+            className="btn btn-secondary upload-btn"
+            type="button"
+            onClick={handleImageUpload}
+          >
+            <i className="fa-solid fa-upload"></i>
+          </button>
+        </div>
       </div>
-      <div>
+      <div className="container images-cont">
         {getImages &&
           getImages.map((image) => {
             return (
               <div key={image.id}>
-                <img
-                  style={{ width: "200px" }}
-                  alt=""
-                  src={image.picture_url}
-                ></img>
                 <button
                   type="button"
                   onClick={() =>
@@ -74,14 +81,17 @@ function CreateImageForm(props) {
                     })
                   }
                 >
-                  Delete
+                  <i className="fa-regular fa-trash-can"></i>{" "}
                 </button>
+                <img alt="" src={image.picture_url}></img>
               </div>
             );
           })}
-        <div>
-          <button onClick={redirecthandler}>Finish</button>
-        </div>
+      </div>
+      <div className="finish-btn">
+        <button className="btn btn-secondary" onClick={redirecthandler}>
+          Finish
+        </button>
       </div>
     </div>
   );
