@@ -4,7 +4,7 @@ Property partner's front end is a single page web application engineered using R
 
 ## Landing Page
 
-Property Partner's Landing page shows all properties currently listed for sale. There is a search bar that allow users to search properties by state or city as well as a side bar that offers the ability to further fither properties by price, square footage, number of beds, numbers of baths, and other features (multistory vs single-story and old-build vs new-build)
+Property Partner's Landing page shows all properties currently listed for sale. There is a search bar that allow users to search properties by state or city as well as a side bar that offers the ability to further filter properties by price, square footage, number of beds, numbers of baths, and other features (multistory vs single-story and old-build vs new-build)
 
 - Only logged in users will have access to the "Add Property Form" and their "User Dashboard".
 - Users that are not logged in have the ability to sign up or log in. They do not have access the add property feature or a user dashboard.
@@ -19,18 +19,18 @@ Each listed property card can be clicked on from the homepage to generate the pr
 
 ## Sign Up Form
 
-Users who chooses to sign up will be presented with a form that requires them to input a **unique** username and email address to sucessfully create an account.
+Users who chooses to sign up will be presented with a form that requires them to input a **unique** username and email address to successfully create an account.
 
 <img src="./Wireframes/Sign-up.jpg"/>
 
 ## Login
 
-Property's Partner login form is implemented using a Bootstrap modal. Users must correctly input a valid username and password pair to sucessfully log in.
+Property's Partner login form is implemented using a Bootstrap modal. Users must correctly input a valid username and password pair to successfully log in.
 <img src="./Wireframes/Login.jpg"/>
 
 ## User Dashboard
 
-The user dashboard is only accessible to authenticated users, offering them a space to manage all their listed properties. Users has the ability to view all their listed properties, list a new property, as well as unlist and edit each of their existing property.
+The user dashboard is only accessible to authenticated users, offering them a space to manage all their listed properties. Users has the ability to view all their listed properties, list a new property, as well as un-list and edit each of their existing property.
 
 <img src="./Wireframes/User-dashboard.jpg"/>
 
