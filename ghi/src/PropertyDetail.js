@@ -21,17 +21,6 @@ const PropertyDetail = () => {
         <div className="main-img">
           <img className="img-fluid" src={images[0].picture_url}></img>
         </div>
-        {/* <div className="extra-img">
-          {images.slice(1, 5).map((image) => {
-            return (
-              <img
-                key={image.id}
-                src={image.picture_url}
-                className="img-thumbnail"
-              ></img>
-            );
-          })}
-        </div> */}
         <div className="extra-img">
           <div>
             {images[1] && <img src={images[1].picture_url}></img>}
