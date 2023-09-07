@@ -22,7 +22,8 @@ class FakePropertiesQuery():
                 "state": "string",
                 "user_id": 0
             }
-            ]
+        ]
+
     def get_property(self, property_id: int):
         return {
             "id": property_id,
@@ -53,21 +54,21 @@ def test_get_properties():
 
     assert res.status_code == 200
     assert data == [
-            {
-                "id": 0,
-                "price": 0,
-                "city": "string",
-                "bedrooms": 0,
-                "bathrooms": 0,
-                "address": "string",
-                "sq_footage": 0,
-                "year_built": 0,
-                "multistory": True,
-                "new_build": True,
-                "state": "string",
-                "user_id": 0
-            }
-            ]
+        {
+            "id": 0,
+            "price": 0,
+            "city": "string",
+            "bedrooms": 0,
+            "bathrooms": 0,
+            "address": "string",
+            "sq_footage": 0,
+            "year_built": 0,
+            "multistory": True,
+            "new_build": True,
+            "state": "string",
+            "user_id": 0
+        }
+    ]
 
 
 def test_get_property_detail():

@@ -1,0 +1,25 @@
+.top-container {
+  margin: 2em 0em;
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-container button {
+  align-self: flex-end;
+}
+
+.user-props-container {
+  display: flex;
+  gap: 3em;
+  overflow-x: scroll;
+  /* width: 70%; */
+}
+
+.card {
+  width: 25em;
+}
+
+.card-img-top {
+  height: 300px;
+}

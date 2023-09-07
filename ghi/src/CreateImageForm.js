@@ -46,7 +46,7 @@ function CreateImageForm(props) {
       )}
       <div className="image-upload-container">
         <h3>
-          <i class="fa-solid fa-images"></i> Upload Property Images
+          <i className="fa-solid fa-images"></i> Upload Property Images
         </h3>
         <div>
           <input

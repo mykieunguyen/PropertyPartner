@@ -36,7 +36,7 @@ const Navcon = () => {
             <span> Partner</span>
           </Navbar.Brand>{" "}
           <Nav className="right-nav">
-            {!account && <button onClick={togglePop}>Login</button>}
+            {!account && <Nav.Link onClick={togglePop}>Login</Nav.Link>}
             {seen ? <Login toggle={togglePop} /> : null}{" "}
             {!account && <Nav.Link href="accounts">Sign up</Nav.Link>}
             {account && <Nav.Link onClick={logout}>Logout</Nav.Link>}
