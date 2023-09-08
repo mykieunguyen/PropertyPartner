@@ -27,7 +27,7 @@ function Login(props) {
         <form className="login-form" onSubmit={handleLogin}>
           <label>Username</label>
           <div className="input-icon">
-            <i class="fa-solid fa-user"></i>
+            <i className="fa-solid fa-user"></i>
             <input
               type="text"
               value={username}

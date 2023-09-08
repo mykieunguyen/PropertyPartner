@@ -64,7 +64,7 @@ const UserProperties = () => {
                           }}
                         >
                           {" "}
-                          <i class="fa-solid fa-pen-to-square"></i>
+                          <i className="fa-solid fa-pen-to-square"></i>
                         </NavLink>
                       </button>
                     </Card.Header>
@@ -95,11 +95,13 @@ const UserProperties = () => {
                       </Card.Subtitle>
                       <Card.Text>
                         <span>
-                          {property.bedrooms} <i class="fa-solid fa-bed"></i>{" "}
+                          {property.bedrooms}{" "}
+                          <i className="fa-solid fa-bed"></i>{" "}
                         </span>
                         <span>|</span>
                         <span>
-                          {property.bathrooms} <i class="fa-solid fa-bath"></i>{" "}
+                          {property.bathrooms}{" "}
+                          <i className="fa-solid fa-bath"></i>{" "}
                         </span>
                         <span>|</span>
                         <span>{property.sq_footage} sqft</span>

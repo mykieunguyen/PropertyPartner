@@ -201,7 +201,7 @@ function EditPropertyForm() {
                   Bedrooms
                 </label>
                 <div className="input-icon">
-                  <i class="fa-solid fa-bed"></i>
+                  <i className="fa-solid fa-bed"></i>
                   <input
                     value={bedrooms}
                     onChange={(e) => setBedrooms(e.target.value)}
@@ -219,7 +219,7 @@ function EditPropertyForm() {
                   Bathrooms
                 </label>
                 <div className="input-icon">
-                  <i class="fa-solid fa-shower"></i>
+                  <i className="fa-solid fa-shower"></i>
                   <input
                     value={bathrooms}
                     onChange={(e) => setBathrooms(e.target.value)}
