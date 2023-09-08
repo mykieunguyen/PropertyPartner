@@ -1,6 +1,24 @@
+.main-cont {
+  margin: 0em;
+  padding: 0em;
+  background-image: url(https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80);
+  backdrop-filter: sepia(110%);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.sec-cont {
+  background-color: rgba(255, 255, 255, 0.809);
+  padding: 3em !important;
+  border-radius: 1em;
+}
+
 .top-container {
-  margin: 2em 0em;
-  height: 15vh;
+  /* margin: 2em 0em; */
+  padding-bottom: 2em;
+  /* height: 15vh; */
   display: flex;
   flex-direction: column;
 }
@@ -11,9 +29,9 @@
 
 .user-props-container {
   display: flex;
-  gap: 3em;
+  gap: 1em;
   overflow-x: scroll;
-  /* width: 70%; */
+  padding-bottom: 0.5em;
 }
 
 .card {
@@ -22,4 +40,42 @@
 
 .card-img-top {
   height: 300px;
+}
+
+.card-header {
+  border: none;
+  position: absolute;
+  padding: 0.5em;
+  z-index: 10;
+}
+
+.card-text {
+  display: flex;
+  justify-content: space-around;
+}
+
+.edit-btn,
+.unlist-btn {
+  border-radius: 0.5em;
+  background-color: #b4946d;
+  border: none;
+  color: white;
+  z-index: 10;
+}
+
+.fa-pen-to-square {
+  color: white;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: white;
+  border-top: none;
+}
+
+.card-footer p {
+  height: 2em;
+  align-self: flex-start;
 }

@@ -122,7 +122,7 @@ const MainPage = () => {
 
 export default MainPage;
 
-const PropertyColumns = (propsList) => {
+export const PropertyColumns = (propsList) => {
   const groups = [[], [], []];
   let col = 0;
 

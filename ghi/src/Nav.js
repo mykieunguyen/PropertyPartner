@@ -1,5 +1,5 @@
 import "./nav.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useGetTokenQuery } from "./app/apiSlice";
 import { useLogoutMutation } from "./app/apiSlice";
 
@@ -13,10 +13,16 @@ const Navcon = () => {
   const { data: account } = useGetTokenQuery();
   const [logout] = useLogoutMutation();
   const [seen, setSeen] = useState(false);
+  const navigate = useNavigate();
 
   function togglePop() {
     setSeen(!seen);
   }
+
+  const logoutHandler = () => {
+    logout();
+    navigate("/");
+  };
   return (
     <>
       <Navbar className="navbar sticky-top navbar-light bg-light">
@@ -39,7 +45,7 @@ const Navcon = () => {
             {!account && <Nav.Link onClick={togglePop}>Login</Nav.Link>}
             {seen ? <Login toggle={togglePop} /> : null}{" "}
             {!account && <Nav.Link href="accounts">Sign up</Nav.Link>}
-            {account && <Nav.Link onClick={logout}>Logout</Nav.Link>}
+            {account && <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>}
           </Nav>
         </div>
       </Navbar>

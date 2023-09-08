@@ -189,31 +189,38 @@ function CreatePropertyForm() {
                 <label htmlFor="bedrooms" className="text-muted">
                   Bedrooms
                 </label>
-                <input
-                  value={bedrooms}
-                  onChange={(e) => setBedrooms(e.target.value)}
-                  placeholder="0"
-                  required
-                  type="number"
-                  name="bedrooms"
-                  id="bedrooms"
-                  className="form-control"
-                />
+                <div className="input-icon">
+                  <i class="fa-solid fa-bed"></i>
+
+                  <input
+                    value={bedrooms}
+                    onChange={(e) => setBedrooms(e.target.value)}
+                    placeholder="0"
+                    required
+                    type="number"
+                    name="bedrooms"
+                    id="bedrooms"
+                    className="form-control input-padding"
+                  />
+                </div>
               </div>
               <div className="form-group">
                 <label htmlFor="bathrooms" className="text-muted">
                   Bathrooms
                 </label>
-                <input
-                  value={bathrooms}
-                  onChange={(e) => setBathrooms(e.target.value)}
-                  placeholder="0"
-                  required
-                  type="number"
-                  name="bathrooms"
-                  id="bathrooms"
-                  className="form-control"
-                />
+                <div className="input-icon">
+                  <i class="fa-solid fa-shower"></i>
+                  <input
+                    value={bathrooms}
+                    onChange={(e) => setBathrooms(e.target.value)}
+                    placeholder="0"
+                    required
+                    type="number"
+                    name="bathrooms"
+                    id="bathrooms"
+                    className="form-control input-padding"
+                  />
+                </div>
               </div>
               <div className="check-container">
                 <div>
