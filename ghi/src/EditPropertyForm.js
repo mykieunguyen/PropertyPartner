@@ -10,7 +10,6 @@ import {
 import { usStates } from "./states.js";
 import { useParams, useNavigate } from "react-router-dom";
 import validator from "validator";
-import { PropertyColumns } from "./MainPage";
 
 function EditPropertyForm() {
   const { id: propertyId } = useParams();

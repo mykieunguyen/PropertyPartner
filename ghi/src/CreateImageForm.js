@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ErrorNotification from "./ErrorNotification";
 import {
   useCreateImagesMutation,
   useGetImagesQuery,
@@ -9,9 +8,7 @@ import {
 import validator from "validator";
 
 function CreateImageForm(props) {
-  const { data: getImages, isLoading: imageLoading } = useGetImagesQuery(
-    props.property_id
-  );
+  const { data: getImages } = useGetImagesQuery(props.property_id);
   const [deleteImage] = useDeleteImageMutation();
   const [createImages] = useCreateImagesMutation();
   const [imageUrl, setImageUrl] = useState("");

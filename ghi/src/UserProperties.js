@@ -1,5 +1,5 @@
 import "./user_dashboard.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import {
   useGetPropertiesForAccountQuery,
@@ -20,8 +20,6 @@ const UserProperties = () => {
   const [deleteMessage, setDeleteMessage] = useState(null);
 
   const [propertyId, setPropertyId] = useState(null);
-
-  const navigate = useNavigate();
 
   const showDeleteModal = () => {
     setDeleteMessage("Are you sure you want to delete the property?");

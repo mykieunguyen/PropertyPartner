@@ -1,4 +1,4 @@
-import { useGetTokenQuery, useLoginMutation } from "./app/apiSlice";
+import { useLoginMutation } from "./app/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 

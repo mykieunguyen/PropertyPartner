@@ -4,7 +4,7 @@ import "./login.css";
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [login, loginResponse] = useLoginMutation();
+  const [login] = useLoginMutation();
   function handleLogin(e) {
     e.preventDefault();
     login({ username, password });

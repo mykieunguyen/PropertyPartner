@@ -23,7 +23,7 @@ const SignUpForm = () => {
       setErrorMessage("Username or email already exists!");
       return;
     }
-  }, [signupResponse]);
+  }, [signupResponse, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,6 +55,7 @@ const SignUpForm = () => {
               <div className="input-icon">
                 <i className="fa-regular fa-user"></i>
                 <input
+                  required
                   name="username"
                   placeholder="username"
                   type="text"
@@ -69,6 +70,7 @@ const SignUpForm = () => {
               <div className="input-icon">
                 <i className="fa-solid fa-lock"></i>
                 <input
+                  required
                   name="password"
                   placeholder="password"
                   type="password"
@@ -83,6 +85,7 @@ const SignUpForm = () => {
               <div className="input-icon">
                 <i className="fa-solid fa-lock"></i>
                 <input
+                  required
                   name="first_name"
                   type="password"
                   placeholder="password"
@@ -97,6 +100,7 @@ const SignUpForm = () => {
               <div className="input-icon">
                 <i className="fa-solid fa-at"></i>
                 <input
+                  required
                   name="email"
                   type="text"
                   placeholder="email"
@@ -109,6 +113,7 @@ const SignUpForm = () => {
             <div className="mb-3">
               <label className="form-label">First Name</label>
               <input
+                required
                 name="first_name"
                 type="text"
                 placeholder="first name"
@@ -120,6 +125,7 @@ const SignUpForm = () => {
             <div className="mb-3">
               <label className="form-label">Last Name:</label>
               <input
+                required
                 name="last_name"
                 type="text"
                 placeholder="last name"
