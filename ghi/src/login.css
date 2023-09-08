@@ -1,3 +1,8 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .popup {
   position: fixed;
   z-index: 1;
@@ -25,11 +30,6 @@
   margin-top: 0;
 }
 
-.popup-inner label {
-  display: block;
-  margin-bottom: 10px;
-}
-
 .popup-inner input {
   width: 100%;
   padding: 5px;
@@ -40,22 +40,25 @@
 
 .popup-inner button[type="submit"],
 .popup-inner button[type="button"] {
-  background-color: #4caf50;
-  color: white;
+  background-color: #be9d73;
+  color: black;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin-right: 10px;
+  margin-bottom: 1em;
   cursor: pointer;
   border-radius: 5px;
+  width: min-content;
+  align-self: flex-end;
 }
 
 .popup-inner button[type="submit"]:hover,
 .popup-inner button[type="button"]:hover {
-  background-color: #45a049;
+  background-color: #be9d73;
 }
 
 .popup-inner button[type="submit"] {
@@ -81,4 +84,58 @@
   background-color: #bfbfbf;
   color: #ffffff;
   cursor: not-allowed;
+}
+
+.top-cont {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-cont button {
+  align-self: flex-end;
+  border: none;
+  background-color: white;
+  font-size: 1.5em;
+  margin: -0.6em -0.6em 0em 0em;
+}
+
+.top-cont > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pic-1 {
+  height: 20vh;
+  width: 20vh;
+  border-radius: 50%;
+  background-image: url("https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTEwfHxob3VzZSUyMGtleXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60");
+  background-size: cover;
+  backdrop-filter: saturate(0.8);
+  background-position: center;
+  margin-bottom: 1em;
+  z-index: 10;
+}
+
+.right-pic,
+.left-pic {
+  height: 15vh;
+  width: 18vh;
+  border-radius: 45%;
+  background-color: bisque;
+  position: absolute;
+}
+
+.left-pic {
+  margin-right: 10em;
+  margin-top: -2em;
+}
+
+.right-pic {
+  margin-left: 10em;
+  margin-bottom: -2em;
+}
+
+.login-icon {
+  padding: 0em;
 }

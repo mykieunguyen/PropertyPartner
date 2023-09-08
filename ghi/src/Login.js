@@ -13,27 +13,42 @@ function Login(props) {
   return (
     <div className="popup">
       <div className="popup-inner">
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-          <label>
-            Username:
+        <div className="top-cont">
+          <button onClick={props.toggle}>
+            <i className="fa-solid fa-circle-xmark"></i>
+          </button>
+          <div className="login-pic">
+            <div className="left-pic"></div>
+            <div className="pic-1"></div>
+            <div className="right-pic"></div>
+          </div>
+          <h2>Welcome Back!</h2>
+        </div>
+        <form className="login-form" onSubmit={handleLogin}>
+          <label>Username</label>
+          <div className="input-icon">
+            <i class="fa-solid fa-user"></i>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              placeholder="username"
+              className="form-control input-padding"
             />
-          </label>
-          <label>
-            Password:
+          </div>
+          <label>Password</label>
+          <div className="input-icon">
+            <i className="login-icon fa-solid fa-lock"></i>{" "}
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="password"
+              className="form-control input-padding"
             />
-          </label>
+          </div>
           <button type="submit">Login</button>
         </form>
-        <button onClick={props.toggle}>Close</button>
       </div>
     </div>
   );
