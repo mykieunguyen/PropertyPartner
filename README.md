@@ -9,9 +9,9 @@ _Property Partner -- Unlocking Your Path to Property Success. Come to us for all
 
 ## Design
 
-- API Design
-- Data Model
-- GHI
+[- API Design](https://gitlab.com/team-20-project-gamma/property-partner/-/blob/main/docs/apis.md?ref_type=heads)
+[- Data Model](https://gitlab.com/team-20-project-gamma/property-partner/-/blob/main/docs/data-model.md?ref_type=heads)
+[- GHI](https://gitlab.com/team-20-project-gamma/property-partner/-/blob/main/docs/ghi.md?ref_type=heads)
 
 ## Intended Market
 
