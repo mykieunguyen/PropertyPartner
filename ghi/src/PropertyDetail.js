@@ -19,7 +19,8 @@ const PropertyDetail = () => {
     <div className="container-fluid">
       <div className="img-container">
         <div className="main-img">
-          <img className="img-fluid" src={images[0].picture_url}></img>
+          {images[0]?(<img className="img-fluid" src={images[0].picture_url}></img>)
+          :<img src="https://st3.depositphotos.com/3907761/17915/v/450/depositphotos_179157200-stock-illustration-home-line-vector-icon.jpg"></img>}
         </div>
         <div className="extra-img">
           <div>
