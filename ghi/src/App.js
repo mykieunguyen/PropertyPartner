@@ -32,7 +32,7 @@ function App() {
       }
     }
     getData();
-  }, []);
+  }, [setError, setLaunchInfo]);
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
