@@ -12,8 +12,8 @@ import PropertyDetail from "./PropertyDetail.js";
 import EditPropertyForm from "./EditPropertyForm.js";
 
 function App() {
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
+  // const [launchInfo, setLaunchInfo] = useState([]);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getData() {
