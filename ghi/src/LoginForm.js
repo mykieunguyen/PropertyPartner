@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (loginResponse.isSuccess) navigate("/");
-  }, [loginResponse]);
+  }, [loginResponse, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

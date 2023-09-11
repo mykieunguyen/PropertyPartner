@@ -19,17 +19,35 @@ const PropertyDetail = () => {
     <div className="container-fluid">
       <div className="img-container">
         <div className="main-img">
-          {images[0]?(<img className="img-fluid" src={images[0].picture_url}></img>)
-          :<img src="https://st3.depositphotos.com/3907761/17915/v/450/depositphotos_179157200-stock-illustration-home-line-vector-icon.jpg"></img>}
+          {images[0] ? (
+            <img
+              className="img-fluid"
+              src={images[0].picture_url}
+              alt="Main image of house"
+            ></img>
+          ) : (
+            <img
+              src="https://st3.depositphotos.com/3907761/17915/v/450/depositphotos_179157200-stock-illustration-home-line-vector-icon.jpg"
+              alt="house outline"
+            ></img>
+          )}
         </div>
         <div className="extra-img">
           <div>
-            {images[1] && <img src={images[1].picture_url}></img>}
-            {images[2] && <img src={images[2].picture_url}></img>}
+            {images[1] && (
+              <img src={images[1].picture_url} alt="extra home image"></img>
+            )}
+            {images[2] && (
+              <img src={images[2].picture_url} alt="extra home image"></img>
+            )}
           </div>
           <div>
-            {images[3] && <img src={images[3].picture_url}></img>}
-            {images[4] && <img src={images[4].picture_url}></img>}
+            {images[3] && (
+              <img src={images[3].picture_url} alt="extra home image"></img>
+            )}
+            {images[4] && (
+              <img src={images[4].picture_url} alt="extra home image"></img>
+            )}
           </div>
         </div>
       </div>
