@@ -2,4 +2,4 @@ fastapi[all]==0.92.0
 uvicorn[standard]==0.17.6
 pytest
 jwtdown-fastapi==0.5.0
-psycopg[binary,pool]==3.1.2
+psycopg[binary,pool]==3.1.10
