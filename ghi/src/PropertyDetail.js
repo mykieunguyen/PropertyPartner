@@ -23,7 +23,7 @@ const PropertyDetail = () => {
             <img
               className="img-fluid"
               src={images[0].picture_url}
-              alt="Main image of house"
+              alt="house"
             ></img>
           ) : (
             <img
@@ -35,18 +35,18 @@ const PropertyDetail = () => {
         <div className="extra-img">
           <div>
             {images[1] && (
-              <img src={images[1].picture_url} alt="extra home image"></img>
+              <img src={images[1].picture_url} alt="home interior"></img>
             )}
             {images[2] && (
-              <img src={images[2].picture_url} alt="extra home image"></img>
+              <img src={images[2].picture_url} alt="home interior"></img>
             )}
           </div>
           <div>
             {images[3] && (
-              <img src={images[3].picture_url} alt="extra home image"></img>
+              <img src={images[3].picture_url} alt="home interior"></img>
             )}
             {images[4] && (
-              <img src={images[4].picture_url} alt="extra home image"></img>
+              <img src={images[4].picture_url} alt="home interior"></img>
             )}
           </div>
         </div>
